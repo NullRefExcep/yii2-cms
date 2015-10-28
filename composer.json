@@ -1,8 +1,8 @@
 {
-    "name": "nullref/yii2-blog",
+    "name": "nullref/yii2-cms",
     "description": "CMS for Yii2",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","blog"],
+    "keywords": ["yii2","extension","cms"],
     "license": "MIT",
     "authors": [
     ],
