@@ -1,0 +1,20 @@
+{
+    "name": "nullref/yii2-blog",
+    "description": "CMS for Yii2",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","blog"],
+    "license": "MIT",
+    "authors": [
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "nullref/yii2-useful": "dev-master",
+        "nullref/yii2-core": "dev-master",
+        "nullref/yii2-admin": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "nullref\\cms\\": "src/"
+        }
+    }
+}
