@@ -37,7 +37,7 @@ class BlockController extends AdminController
         $blockManager = Yii::$app->getModule('cms')->get('blockManager');
 
         /** @var \nullref\cms\components\Block $block */
-        $block = $blockManager->getBlock($model->blockId);
+        $block = $blockManager->getBlock($model->class_name);
 
         if (!$model->isNewRecord){
             $block->setAttributes($model->getData());

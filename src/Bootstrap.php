@@ -3,8 +3,12 @@
 namespace nullref\cms;
 
 
+use yii\base\ActionEvent;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
+use yii\base\Controller;
+use yii\base\Event;
+use yii\web\ErrorAction;
 
 class Bootstrap implements BootstrapInterface
 {
@@ -12,7 +16,7 @@ class Bootstrap implements BootstrapInterface
     {
         $prefix = $app->getModule('cms')->urlPrefix;
         $app->urlManager->addRules([
-            $prefix.'/<route:[a-zA-Z0-9-/]+>' => '/cms/page/index'
+            $prefix.'/<route:[a-zA-Z0-9-/]+>' => '/cms/page/view'
         ]);
     }
 

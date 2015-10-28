@@ -2,24 +2,44 @@
 
 namespace nullref\cms\components;
 
-use nullref\cms\models\Block;
+use nullref\cms\models\Block as BlockModel;
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 
 class BlockManager extends Component
 {
-    public function getList()
+    const CLASS_WIDGET = '\Widget';
+    const CLASS_BLOCK = '\Block';
+
+    protected $blocks = [];
+
+    public function register($id, $namespace)
     {
-        return [
-            'text' => 'nullref\cms\blocks\text',
-            'html' => 'nullref\cms\blocks\html',
-        ];
+        if (class_exists($namespace . self::CLASS_BLOCK) && class_exists($namespace . self::CLASS_WIDGET)) {
+            $this->blocks[$id] = $namespace;
+        } else {
+            throw new InvalidConfigException("Classes Widget and Block must be present in namespace '$namespace'");
+        }
     }
 
+    public function getList()
+    {
+        return array_merge($this->blocks,[
+            'text' => 'nullref\cms\blocks\text',
+            'html' => 'nullref\cms\blocks\html',
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \nullref\cms\components\Block
+     * @throws \yii\base\InvalidConfigException
+     */
     public function getBlock($id)
     {
-        return \Yii::createObject($this->getList()[$id].'\Block');
+        return \Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
     }
 
     /**
@@ -30,10 +50,10 @@ class BlockManager extends Component
      */
     public function getWidget($id, $config = [])
     {
-        /** @var Block $block */
-        $block = Block::find()->where(['class_name'=>$id])->one();
-        $config = ArrayHelper::merge($config,$block->getData());
-        $config['class'] = $this->getList()[$id].'\Widget';
+        /** @var BlockModel $block */
+        $block = BlockModel::find()->where(['id' => $id])->one();
+        $config = ArrayHelper::merge($config, $block->getData());
+        $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
         $widget = \Yii::createObject($config);
         return $widget;
     }
@@ -43,7 +63,7 @@ class BlockManager extends Component
         $list = [];
         foreach ($this->getList() as $id => $path) {
             /** @var \nullref\cms\components\Block $block */
-            $block = \Yii::createObject($path.'\Block');
+            $block = \Yii::createObject($path . self::CLASS_BLOCK);
             $list[$id] = $block->getName();
         }
         return $list;

@@ -30,10 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'class_name',
-            'config:ntext',
-            //'createdAt',
-            //'updatedAt',
+            [
+                //'filter'=>\nullref\cms\components\Block::getManager()->getDropDownArray(),
+                'attribute'=>'class_name',
+                'value'=>'typeName'
+            ],
+            'createdAt:datetime',
+            'updatedAt:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

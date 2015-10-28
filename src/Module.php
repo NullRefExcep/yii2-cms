@@ -30,16 +30,16 @@ class Module extends BaseModule implements IAdminModule
     {
         return [
             'label' => Yii::t('cms', 'CMS'),
-            'icon' => 'archive',
+            'icon' => 'columns',
             'items'=>[
                 [
                     'label' => Yii::t('cms', 'Pages'),
-                    'icon' => 'archive',
+                    'icon' => 'copy',
                     'url' => '/cms/admin/page',
                 ],
                 [
                     'label' => Yii::t('cms', 'Blocks'),
-                    'icon' => 'archive',
+                    'icon' => 'clone',
                     'url' => '/cms/admin/block',
                 ],
             ]

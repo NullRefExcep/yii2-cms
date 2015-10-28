@@ -2,8 +2,10 @@
 
 namespace nullref\cms\models;
 
+use nullref\cms\components\RelatedBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%cms_page}}".
@@ -14,8 +16,14 @@ use yii\behaviors\TimestampBehavior;
  * @property string $layout
  * @property integer $createdAt
  * @property integer $updatedAt
+ *
+ *
+ * @property PageHasBlock[] $items
+ * @property PageHasBlock[] $items_list
+ *
+ * @method loadWithRelations($data, $formName = null)
  */
-class Page extends \yii\db\ActiveRecord
+class Page extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -25,6 +33,9 @@ class Page extends \yii\db\ActiveRecord
         return '{{%cms_page}}';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -32,7 +43,13 @@ class Page extends \yii\db\ActiveRecord
                 'class'=>TimestampBehavior::className(),
                 'createdAtAttribute' => 'createdAt',
                 'updatedAtAttribute' => 'updatedAt',
-            ]
+            ],
+            'related' => [
+                'class' => RelatedBehavior::className(),
+                'fields' => [
+                    'items' => PageHasBlock::className(),
+                ]
+            ],
         ];
     }
 
@@ -71,5 +88,13 @@ class Page extends \yii\db\ActiveRecord
     public static function find()
     {
         return new PageQuery(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItems()
+    {
+        return $this->hasMany(PageHasBlock::className(),['page_id'=>'id'])->orderBy(['order'=>SORT_ASC]);
     }
 }

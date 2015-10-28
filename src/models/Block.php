@@ -2,7 +2,11 @@
 
 namespace nullref\cms\models;
 
+use nullref\cms\components\Widget;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use nullref\cms\components\Block as CMSBlock;
 
 /**
  * This is the model class for table "{{%cms_block}}".
@@ -13,10 +17,8 @@ use Yii;
  * @property integer $createdAt
  * @property integer $updatedAt
  */
-class Block extends \yii\db\ActiveRecord
+class Block extends ActiveRecord
 {
-    public $blockId;
-
     /**
      * @inheritdoc
      */
@@ -28,10 +30,24 @@ class Block extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            'timestamp'=>[
+                'class'=>TimestampBehavior::className(),
+                'createdAtAttribute' => 'createdAt',
+                'updatedAtAttribute' => 'updatedAt',
+            ]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['id', 'blockId'], 'required'],
+            [['id', 'class_name'], 'required'],
             [['config'], 'string'],
             [['createdAt', 'updatedAt'], 'integer'],
             [['id', 'class_name'], 'string', 'max' => 255],
@@ -45,7 +61,7 @@ class Block extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('cms', 'ID'),
-            'class_name' => Yii::t('cms', 'Class Name'),
+            'class_name' => Yii::t('cms', 'Block Type'),
             'config' => Yii::t('cms', 'Config'),
             'createdAt' => Yii::t('cms', 'Created At'),
             'updatedAt' => Yii::t('cms', 'Updated At'),
@@ -61,14 +77,31 @@ class Block extends \yii\db\ActiveRecord
         return new BlockQuery(get_called_class());
     }
 
+    public function getTypeName()
+    {
+        return CMSBlock::getManager()->getBlock($this->class_name)->getName();
+    }
+
     public function getData()
     {
         return unserialize($this->config);
     }
 
-    public function setData(\nullref\cms\components\Block $block)
+    public function setData(CMSBlock $block)
     {
         $this->config = serialize($block->getConfig());
-        $this->class_name = $this->blockId;
+    }
+
+    public function getFullName()
+    {
+        return $this->id . ' ('.$this->getTypeName().')';
+    }
+
+    /**
+     * @return Widget
+     */
+    public function getWidget()
+    {
+        return CMSBlock::getManager()->getWidget($this->id);
     }
 }

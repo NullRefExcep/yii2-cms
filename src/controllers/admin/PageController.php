@@ -60,9 +60,10 @@ class PageController extends AdminController
      */
     public function actionCreate()
     {
+        /** @var Page $model */
         $model = Yii::createObject(Page::className());
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->loadWithRelations(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -81,7 +82,7 @@ class PageController extends AdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->loadWithRelations(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

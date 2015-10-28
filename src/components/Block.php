@@ -8,7 +8,7 @@ use yii\base\Widget;
 
 abstract class Block extends Model
 {
-    public $form = '_form.php';
+    public $formFile = '_form.php';
 
     public abstract function getName();
 
@@ -19,8 +19,20 @@ abstract class Block extends Model
 
     public function getForm()
     {
-        return realpath($this->getDir().'/'.$this->form);
+        return realpath($this->getDir().'/'.$this->formFile);
     }
 
-    public abstract function getConfig();
+    public function getConfig()
+    {
+        return $this->getAttributes(null,['formFile']);
+    }
+
+    /**
+     * @param string $moduleId
+     * @return BlockManager
+     */
+    public static function getManager($moduleId='cms')
+    {
+        return \Yii::$app->getModule($moduleId)->get('blockManager');
+    }
 }

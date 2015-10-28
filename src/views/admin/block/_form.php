@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use nullref\cms\components\Block as CMSBlock;
 
 /* @var $this yii\web\View */
 /* @var $model nullref\cms\models\Block */
 /* @var $form yii\widgets\ActiveForm */
 /** @var \nullref\cms\components\BlockManager $blockManager */
-$blockManager = Yii::$app->getModule('cms')->get('blockManager');
 
 ?>
 
@@ -17,7 +17,7 @@ $blockManager = Yii::$app->getModule('cms')->get('blockManager');
 
     <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'blockId')->dropDownList($blockManager->getDropDownArray()) ?>
+    <?= $form->field($model, 'class_name')->dropDownList(CMSBlock::getManager()->getDropDownArray(),['prompt'=>'']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('cms', 'Create') : Yii::t('cms', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -8,7 +8,9 @@ use nullref\cms\components\Block as BaseBlock;
  */
 class Block extends BaseBlock
 {
-    public  $content;
+    public $content;
+    public $tag = 'div';
+    public $tagClass = 'alert alert-success';
 
     public function getName()
     {
@@ -18,16 +20,8 @@ class Block extends BaseBlock
     public function rules()
     {
         return [
-            [['content'],'required'],
+            [['content','tag','tagClass'],'required'],
         ];
     }
-
-    public function getConfig()
-    {
-        return [
-            'content'=>$this->content,
-        ];
-    }
-
 
 }

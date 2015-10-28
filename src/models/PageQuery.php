@@ -1,19 +1,20 @@
 <?php
 
 namespace nullref\cms\models;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[Page]].
  *
  * @see Page
  */
-class PageQuery extends \yii\db\ActiveQuery
+class PageQuery extends ActiveQuery
 {
-    /*public function active()
+    public function byRoute($route)
     {
-        $this->andWhere('[[status]]=1');
+        $this->andWhere(['route'=>$route]);
         return $this;
-    }*/
+    }
 
     /**
      * @inheritdoc

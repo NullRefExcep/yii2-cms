@@ -5,3 +5,5 @@
  */
 
 echo $form->field($block, 'content')->textarea();
+echo $form->field($block, 'tag')->textInput();
+echo $form->field($block, 'tagClass')->textInput();

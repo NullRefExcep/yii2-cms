@@ -36,10 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'class_name',
-            'config:ntext',
-            'createdAt',
-            'updatedAt',
+            'typeName',
+            'createdAt:datetime',
+            'updatedAt:datetime',
         ],
     ]) ?>
 

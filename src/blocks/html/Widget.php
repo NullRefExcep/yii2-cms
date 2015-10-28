@@ -5,16 +5,17 @@
 
 namespace nullref\cms\blocks\html;
 
-use nullref\cms\components\Widget as BaseWidget;
+use nullref\cms\blocks\text\Widget as BaseWidget;
 use yii\helpers\Html;
 
 
 class Widget extends BaseWidget
 {
-    public  $content;
-
     public function run()
     {
-        return Html::encode($this->content);
+        return
+            Html::beginTag($this->tag,['class'=>$this->tagClass]).
+            Html::encode($this->content).
+            Html::endTag($this->tag);
     }
 }

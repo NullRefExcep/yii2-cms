@@ -8,6 +8,8 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
+        "yiisoft/yii2-jui": "~2.0.0",
+        "mihaildev/yii2-ckeditor": "*",
         "nullref/yii2-useful": "dev-master",
         "nullref/yii2-core": "dev-master",
         "nullref/yii2-admin": "dev-master"
