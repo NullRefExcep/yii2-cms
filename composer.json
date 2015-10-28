@@ -16,5 +16,8 @@
         "psr-4": {
             "nullref\\cms\\": "src/"
         }
+    },
+    "extra": {
+        "bootstrap":"nullref\\cms\\Bootstrap"
     }
 }
