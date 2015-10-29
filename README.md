@@ -21,19 +21,13 @@ or add
 
 to the require section of your `composer.json` file.
 
-Then You have run console command for install this module:
-
-```
-php yii module/install product
-```
-
-and module will be added to your application config (`@app/config/installed_modules.php`)
+Run command `php yii module/install product` to install this module. It will be added to your application config (`@app/config/installed_modules.php`)
 
 Concept
 -------
 
 This module allows you to build dynamic pages which consist of blocks (widget with config).
-You can create own type of widgets and register it in BlockManager.
+You can create custom widgets and register it in BlockManager.
 
 
 BlockManager
@@ -63,12 +57,12 @@ class BlockManager extends BaseBlockManager
 }
 ```
 
-Also you can register your block in runtime:
+To register block at runtime:
 
 ```php
     Block::getManager()->register('smile','app\blocks\smile');
     //or
-    \Yii::$app->getModule($moduleId)->get('blockManager')->register('smile','app\blocks\smile');
+    Yii::$app->getModule($moduleId)->get('blockManager')->register('smile','app\blocks\smile');
 ```
 
 
@@ -76,7 +70,7 @@ Also you can register your block in runtime:
 Block structure convention
 --------------------------
 
-Each valid block it's folder with to classes:
+Each valid block is a folder with to classes:
 
 - Block - define data block to use
 - Widget - run with data when this block use on page
@@ -87,7 +81,7 @@ When you add own block you have to set unique id and namespace of block files fo
 
 
 
-Using with yii2-admin module
+Admin Panel
 ----------------------------
 
 You can use this module with [Yii2 Admin](https://github.com/NullRefExcep/yii2-admin) module.
