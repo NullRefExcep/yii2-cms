@@ -70,12 +70,12 @@ To register block at runtime:
 Block structure convention
 --------------------------
 
-Each valid block is a folder with to classes:
+ A valid block is represented by a folder with two classes:
 
 - Block - define data block to use
 - Widget - run with data when this block use on page
 
-In most cases where is form file in this folder.
+In most cases form file will also be in this folder
 
 When you add own block you have to set unique id and namespace of block files folder.
 
