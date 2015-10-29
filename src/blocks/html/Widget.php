@@ -15,7 +15,7 @@ class Widget extends BaseWidget
     {
         return
             Html::beginTag($this->tag,['class'=>$this->tagClass]).
-            Html::encode($this->content).
+            $this->content.
             Html::endTag($this->tag);
     }
 }
