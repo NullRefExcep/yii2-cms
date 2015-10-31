@@ -4,6 +4,7 @@ namespace nullref\cms\models;
 
 use nullref\cms\components\RelatedBehavior;
 use Yii;
+use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -39,8 +40,8 @@ class Page extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp'=>[
-                'class'=>TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'createdAt',
                 'updatedAtAttribute' => 'updatedAt',
             ],
@@ -50,6 +51,16 @@ class Page extends ActiveRecord
                     'items' => PageHasBlock::className(),
                 ]
             ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return [
+            'layout' => Yii::t('cms', 'e.g. @app/views/layouts/main'),
         ];
     }
 
@@ -63,7 +74,24 @@ class Page extends ActiveRecord
             [['route', 'title', 'layout'], 'required'],
             [['createdAt', 'updatedAt'], 'integer'],
             [['route', 'title', 'layout'], 'string', 'max' => 255],
+            [['layout'], 'validateAlias'],
         ];
+    }
+
+    /**
+     * @param $attribute
+     */
+    public function validateAlias($attribute)
+    {
+        try {
+
+            $path = Yii::getAlias($this->{$attribute});
+            if (!(file_exists($path) || file_exists($path . '.php'))) {
+                $this->addError($attribute, Yii::t('cms', 'Layout file must exist'));
+            }
+        } catch (\Exception $e) {
+            $this->addError($attribute, $e->getMessage());
+        }
     }
 
     /**
@@ -95,6 +123,6 @@ class Page extends ActiveRecord
      */
     public function getItems()
     {
-        return $this->hasMany(PageHasBlock::className(),['page_id'=>'id'])->orderBy(['order'=>SORT_ASC]);
+        return $this->hasMany(PageHasBlock::className(), ['page_id' => 'id'])->orderBy(['order' => SORT_ASC]);
     }
 }

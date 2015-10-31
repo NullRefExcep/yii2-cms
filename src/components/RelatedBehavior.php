@@ -28,6 +28,8 @@ class RelatedBehavior extends Behavior
     protected $_editedValues = [];
     /** @var ActiveRecord[][] */
     protected $_removedValues = [];
+    /** @var ActiveRecord[][] */
+    protected $_formValues = [];
 
 
     /**
@@ -50,20 +52,21 @@ class RelatedBehavior extends Behavior
         foreach ($this->fields as $name => $class) {
             $originalName = $name . $this->filedSuffix;
             foreach ($this->_newValues[$originalName] as $model) {
-                if (!$model->validate()){
-                    $owner->addErrors(['items'=>$model->getErrors()]);
+                if (!$model->validate()) {
+                    $owner->addErrors(['items' => $model->getErrors()]);
                     return false;
                 }
             }
             foreach ($this->_editedValues[$originalName] as $model) {
-                if (!$model->validate()){
-                    $owner->addErrors(['items'=>$model->getErrors()]);
+                if (!$model->validate()) {
+                    $owner->addErrors(['items' => $model->getErrors()]);
                     return false;
                 }
             }
         }
         return true;
     }
+
     /**
      * @param $data
      * @param null $formName
@@ -81,6 +84,7 @@ class RelatedBehavior extends Behavior
                 foreach ($data[$relatedFormName] as $key => $item) {
                     $models[$key] = new $class(array_merge($item, ['id' => $key]));
                 }
+                $this->_formValues[$name . $this->filedSuffix] = $models;
                 $owner->{$name . $this->filedSuffix} = ($models);
             }
         }
@@ -148,6 +152,9 @@ class RelatedBehavior extends Behavior
             $owner = $this->owner;
             if ($owner->isNewRecord) {
                 return $this->_newValues[$name];
+            }
+            if (!(empty($this->_newValues[$name]) && empty($this->_editedValues[$name]) && empty($this->_removedValues[$name]))) {
+                return $this->_formValues[$name];
             }
             return $owner->{$originalName};
         }

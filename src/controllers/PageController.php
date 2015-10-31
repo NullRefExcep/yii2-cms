@@ -1,9 +1,9 @@
 <?php
 
 namespace nullref\cms\controllers;
-use nullref\cms\models\Page;
+
+use nullref\cms\actions\PageView;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
 
 /**
@@ -11,14 +11,16 @@ use yii\web\NotFoundHttpException;
  */
 class PageController extends Controller
 {
-    public function actionView($route)
+    /**
+     * @inheritdoc
+     */
+    public function actions()
     {
-        $page = Page::find()->byRoute($route)->one();
-        if (!isset($page)){
-            throw new NotFoundHttpException();
-        }
-        return $this->render('view',[
-            'page'=>$page,
-        ]);
+        return [
+            'view' => [
+                'class' => PageView::className(),
+            ]
+        ];
     }
+
 }

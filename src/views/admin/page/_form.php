@@ -64,6 +64,19 @@ function addBlock(data) {
 }
 JS
 );
+
+$this->registerCss(<<<CSS
+.hint-block {
+    font-size: 12px;
+    padding: 2px;
+    opacity: 0.7;
+}
+
+.hint-block:hover {
+    opacity: 1;
+}
+CSS
+);
 ?>
 <div class="hide">
     <li class="list-group-item" id="pageItemTmpl">
