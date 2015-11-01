@@ -4,6 +4,7 @@ namespace nullref\cms;
 
 
 use yii\base\BootstrapInterface;
+use yii\i18n\PhpMessageSource;
 use yii\web\Application as WebApplication;
 
 class Bootstrap implements BootstrapInterface
@@ -26,6 +27,11 @@ class Bootstrap implements BootstrapInterface
                         'name' => 'Uploads'
                     ],
                 ],
+            ];
+
+            $app->i18n->translations['cms*']=[
+                'class' => PhpMessageSource::className(),
+                'basePath' => '@nullref/cms/messages',
             ];
         }
     }
