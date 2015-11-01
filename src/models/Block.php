@@ -16,6 +16,8 @@ use nullref\cms\components\Block as CMSBlock;
  * @property string $config
  * @property integer $createdAt
  * @property integer $updatedAt
+ *
+ * @property Page[] $pages
  */
 class Block extends ActiveRecord
 {
@@ -49,6 +51,7 @@ class Block extends ActiveRecord
         return [
             [['id', 'class_name'], 'required'],
             [['config'], 'string'],
+            [['id'], 'unique'],
             [['createdAt', 'updatedAt'], 'integer'],
             [['id', 'class_name'], 'string', 'max' => 255],
         ];
@@ -63,6 +66,7 @@ class Block extends ActiveRecord
             'id' => Yii::t('cms', 'ID'),
             'class_name' => Yii::t('cms', 'Block Type'),
             'config' => Yii::t('cms', 'Config'),
+            'pages' => Yii::t('cms', 'Pages'),
             'createdAt' => Yii::t('cms', 'Created At'),
             'updatedAt' => Yii::t('cms', 'Updated At'),
         ];
@@ -103,5 +107,13 @@ class Block extends ActiveRecord
     public function getWidget()
     {
         return CMSBlock::getManager()->getWidget($this->id);
+    }
+
+    /**
+     * @return $this
+     */
+    public function getPages()
+    {
+        return $this->hasMany(Page::className(),['id'=>'page_id'])->viaTable(PageHasBlock::tableName(),['block_id'=>'id']);
     }
 }

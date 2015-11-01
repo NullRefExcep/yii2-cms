@@ -2,12 +2,12 @@
 
 namespace nullref\cms\controllers\admin;
 
-use Yii;
-use nullref\cms\models\Block;
-use yii\data\ActiveDataProvider;
 use nullref\admin\components\AdminController;
-use yii\web\NotFoundHttpException;
+use nullref\cms\models\Block;
+use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * BlockController implements the CRUD actions for Block model.
@@ -26,12 +26,16 @@ class BlockController extends AdminController
         ];
     }
 
-    public function actionConfig()
+    public function actionConfig($id = null)
     {
         /** @var Block $model */
-        $model = Yii::$app->session->get('new-block');
-        if (!$model) {
-            $this->redirect('create');
+        if ($id === null) {
+            $model = Yii::$app->session->get('new-block');
+            if (!$model) {
+                $this->redirect('create');
+            }
+        } else {
+            $model = $this->findModel($id);
         }
         /** @var \nullref\cms\components\BlockManager $blockManager */
         $blockManager = Yii::$app->getModule('cms')->get('blockManager');
@@ -39,19 +43,19 @@ class BlockController extends AdminController
         /** @var \nullref\cms\components\Block $block */
         $block = $blockManager->getBlock($model->class_name);
 
-        if (!$model->isNewRecord){
+        if (!$model->isNewRecord) {
             $block->setAttributes($model->getData());
         }
 
-        if ($block->load(Yii::$app->request->post()) && ($block->validate())){
+        if ($block->load(Yii::$app->request->post()) && ($block->validate())) {
             $model->setData($block);
             $model->save();
             Yii::$app->session->remove('new-block');
-            return $this->redirect(['view','id'=>$model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('config',[
-            'block'=>$block,
+        return $this->render('config', [
+            'block' => $block,
         ]);
     }
 

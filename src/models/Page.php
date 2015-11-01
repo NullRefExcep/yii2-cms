@@ -4,7 +4,6 @@ namespace nullref\cms\models;
 
 use nullref\cms\components\RelatedBehavior;
 use Yii;
-use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 

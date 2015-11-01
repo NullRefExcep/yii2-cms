@@ -75,6 +75,10 @@ $this->registerCss(<<<CSS
 .hint-block:hover {
     opacity: 1;
 }
+
+.page-items-list .list-group-item {
+    cursor: pointer;
+}
 CSS
 );
 ?>
@@ -109,8 +113,8 @@ CSS
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">Page Content</div>
-                <ul class="list-group" id="pageItemsList">
+                <div class="panel-heading"><?= Yii::t('cms','Page Content') ?></div>
+                <ul class="list-group page-items-list" id="pageItemsList">
                     <?php foreach ($model->items_list as $item): ?>
 
 
@@ -133,7 +137,7 @@ CSS
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">Available Blocks</div>
+                <div class="panel-heading"><?= Yii::t('cms','Available Blocks') ?></div>
                 <ul class="list-group" id="blocksList">
                     <?php foreach ($blocks as $id => $block): ?>
                         <li class="list-group-item">
