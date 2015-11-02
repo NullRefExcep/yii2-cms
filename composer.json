@@ -13,7 +13,8 @@
         "mihaildev/yii2-elfinder": "*",
         "nullref/yii2-useful": "dev-master",
         "nullref/yii2-core": "dev-master",
-        "nullref/yii2-admin": "dev-master"
+        "nullref/yii2-admin": "dev-master",
+        "bower-asset/owl.carousel": "2.*"
     },
     "autoload": {
         "psr-4": {

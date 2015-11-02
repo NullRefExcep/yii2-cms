@@ -29,6 +29,8 @@ class BlockManager extends Component
         return array_merge($this->blocks,[
             'text' => 'nullref\cms\blocks\text',
             'html' => 'nullref\cms\blocks\html',
+            'image' => 'nullref\cms\blocks\image',
+            'carousel' => 'nullref\cms\blocks\carousel',
         ]);
     }
 
