@@ -21,7 +21,7 @@ or add
 
 to the require section of your `composer.json` file.
 
-Run command `php yii module/install product` to install this module. It will be added to your application config (`@app/config/installed_modules.php`)
+Run command `php yii module/install cms` to install this module. It will be added to your application config (`@app/config/installed_modules.php`)
 
 Concept
 -------
