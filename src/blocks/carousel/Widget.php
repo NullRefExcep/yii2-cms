@@ -7,18 +7,21 @@ namespace nullref\cms\blocks\carousel;
 
 use nullref\cms\blocks\text\Widget as BaseWidget;
 use yii\helpers\Html;
-use sersid\owlcarousel\Asset;
+use nullref\cms\assets\owlCarousel\OwlCarousel2;
 
 
 class Widget extends BaseWidget
 {
-    public $carouselName;
+    public $sliderWrapperName;
+    public $defaultSliderName;
+    public $carouselId;
+
     public function run()
     {
-        Asset::register($this->view);
+        OwlCarousel2::register($this->view);
         $this->view->registerJs(<<<JS
             jQuery(function(){
-                var selector = "."+"$this->carouselName";
+                var selector = "#"+"$this->carouselId";
                 jQuery(selector).owlCarousel({
                     loop:true,
                     center: true,
@@ -28,12 +31,15 @@ class Widget extends BaseWidget
                 });
             });
 JS
-       );
+        );
 
         return
-            Html::beginTag($this->tag, ['class' => $this->tagClass]) .
-                Html::beginTag('div', ['class' => $this->carouselName]) .
-                    $this->content.
+            Html::beginTag($this->tag, ['class' => $this->sliderWrapperName]) .
+                Html::beginTag('div', [
+                    'class' => $this->defaultSliderName . ' owl-carousel',
+                    'id' => $this->carouselId
+                    ]) .
+                    $this->content .
                 Html::endTag('div') .
             Html::endTag($this->tag);
     }

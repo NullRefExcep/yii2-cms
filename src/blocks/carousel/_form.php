@@ -45,6 +45,6 @@ echo $form->field($block, 'content')->widget(CKEditor::className(), [
         ],
     ],
 ]);
-echo $form->field($block, 'tag')->textInput();
-echo $form->field($block, 'tagClass')->textInput();
-echo $form->field($block, 'carouselName')->textInput();
+echo $form->field($block, 'sliderWrapperName')->textInput();
+echo $form->field($block, 'defaultSliderName')->textInput();
+echo $form->field($block, 'carouselId')->textInput();

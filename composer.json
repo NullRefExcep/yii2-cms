@@ -14,7 +14,8 @@
         "nullref/yii2-useful": "dev-master",
         "nullref/yii2-core": "dev-master",
         "nullref/yii2-admin": "dev-master",
-        "bower-asset/owl.carousel": "2.*"
+        "bower-asset/owl.carousel": "2.*",
+        "trntv/yii2-aceeditor": "*"
     },
     "autoload": {
         "psr-4": {
