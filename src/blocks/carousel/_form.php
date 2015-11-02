@@ -11,7 +11,9 @@ use \yii\web\View;
 list(, $footnotesUrl) = Yii::$app->assetManager->publish('@nullref/cms/assets/ckeditor-plugins/codemirror');
 $this->registerJs("CKEDITOR.plugins.addExternal( 'codemirror', '" . $footnotesUrl . "/','plugin.js');", View::POS_END);
 
-echo $form->field($block, 'content')->widget(CKEditor::className(), [
+?>
+
+<?= $form->field($block, 'content')->widget(CKEditor::className(), [
     'id' => 'editor',
     'editorOptions' => [
         'preset' => 'full',
@@ -44,7 +46,21 @@ echo $form->field($block, 'content')->widget(CKEditor::className(), [
             'useBeautify' => true,
         ],
     ],
-]);
-echo $form->field($block, 'sliderWrapperName')->textInput();
-echo $form->field($block, 'defaultSliderName')->textInput();
-echo $form->field($block, 'carouselId')->textInput();
+]); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $form->field($block, 'sliderConfig')->widget(
+            'trntv\aceeditor\AceEditor',
+            [
+                'mode' => 'json', // programing language mode. Default "html"
+                'theme' => 'github' // editor theme. Default "github"
+            ]
+        ); ?>
+    </div>
+    <div class="col-md-6">
+        <?= $form->field($block, 'sliderWrapperName')->textInput(); ?>
+        <?= $form->field($block, 'defaultSliderName')->textInput(); ?>
+        <?= $form->field($block, 'carouselId')->textInput(); ?>
+    </div>
+</div>

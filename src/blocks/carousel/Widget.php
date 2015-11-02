@@ -15,6 +15,7 @@ class Widget extends BaseWidget
     public $sliderWrapperName;
     public $defaultSliderName;
     public $carouselId;
+    public $sliderConfig;
 
     public function run()
     {
@@ -22,13 +23,7 @@ class Widget extends BaseWidget
         $this->view->registerJs(<<<JS
             jQuery(function(){
                 var selector = "#"+"$this->carouselId";
-                jQuery(selector).owlCarousel({
-                    loop:true,
-                    center: true,
-                    margin:0,
-                    nav:true,
-                    items: 1
-                });
+                jQuery(selector).owlCarousel($this->sliderConfig);
             });
 JS
         );

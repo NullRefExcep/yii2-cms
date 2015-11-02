@@ -12,6 +12,13 @@ class Block extends BaseBlock
     public $sliderWrapperName = 'cms-slider-wrapper';
     public $defaultSliderName = 'cms-slider';
     public $carouselId = 'carousel-slider';
+    public $sliderConfig = '{
+        loop:true,
+        center: true,
+        margin: 0,
+        nav:true,
+        items: 1
+}';
 
     public function getName()
     {
@@ -21,7 +28,7 @@ class Block extends BaseBlock
     public function rules()
     {
         return [
-            [['content','sliderWrapperName', 'defaultSliderName', 'carouselId'],'required'],
+            [['content', 'sliderWrapperName', 'defaultSliderName', 'carouselId', 'sliderConfig'], 'required'],
         ];
     }
 
