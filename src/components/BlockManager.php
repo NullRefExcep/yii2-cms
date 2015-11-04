@@ -13,12 +13,14 @@ class BlockManager extends Component
     const CLASS_WIDGET = '\Widget';
     const CLASS_BLOCK = '\Block';
 
-    protected $blocks = [];
+    public $blocks = [];
+
+    protected $_blocks = [];
 
     public function register($id, $namespace)
     {
         if (class_exists($namespace . self::CLASS_BLOCK) && class_exists($namespace . self::CLASS_WIDGET)) {
-            $this->blocks[$id] = $namespace;
+            $this->_blocks[$id] = $namespace;
         } else {
             throw new InvalidConfigException("Classes Widget and Block must be present in namespace '$namespace'");
         }
@@ -26,7 +28,7 @@ class BlockManager extends Component
 
     public function getList()
     {
-        return array_merge($this->blocks,[
+        return array_merge($this->blocks, $this->_blocks, [
             'text' => 'nullref\cms\blocks\text',
             'html' => 'nullref\cms\blocks\html',
             'image' => 'nullref\cms\blocks\image',

@@ -40,8 +40,11 @@ class Bootstrap implements BootstrapInterface
             Event::on(Gii::className(), Gii::EVENT_BEFORE_ACTION, function (Event $event) {
                 /** @var Gii $gii */
                 $gii = $event->sender;
-                $gii->generators['relation-migration'] = [
+                $gii->generators['block-migration-generator'] = [
                     'class' => 'nullref\cms\generators\migration\Generator',
+                ];
+                $gii->generators['block-generator'] = [
+                    'class' => 'nullref\cms\generators\block\Generator',
                 ];
             });
         }
