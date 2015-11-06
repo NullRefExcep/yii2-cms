@@ -1,6 +1,6 @@
 Content Management Module for Yii2
 ====================
-Content Management Module for Yii2
+[![Latest Stable Version](https://poser.pugx.org/nullref/yii2-cms/v/stable)](https://packagist.org/packages/nullref/yii2-cms) [![Total Downloads](https://poser.pugx.org/nullref/yii2-cms/downloads)](https://packagist.org/packages/nullref/yii2-cms) [![Latest Unstable Version](https://poser.pugx.org/nullref/yii2-cms/v/unstable)](https://packagist.org/packages/nullref/yii2-cms) [![License](https://poser.pugx.org/nullref/yii2-cms/license)](https://packagist.org/packages/nullref/yii2-cms)
 
 Installation
 ------------
