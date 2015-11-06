@@ -1,11 +1,13 @@
-
 <?php
+
 namespace nullref\cms;
+
 use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\i18n\PhpMessageSource;
 use yii\gii\Module as Gii;
 use yii\web\Application as WebApplication;
+
 class Bootstrap implements BootstrapInterface
 {
     public function bootstrap($app)
