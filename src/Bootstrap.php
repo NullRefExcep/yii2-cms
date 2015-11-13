@@ -17,18 +17,20 @@ class Bootstrap implements BootstrapInterface
             $app->urlManager->addRules([
                 $prefix . '/<route:[a-zA-Z0-9-/]+>' => '/cms/page/view'
             ]);
-            $app->controllerMap['elfinder-backend'] = [
-                'class' => 'mihaildev\elfinder\Controller',
-                'user' => 'admin',
-                'access' => ['@'],
-                'disabledCommands' => ['netmount'],
-                'roots' => [
-                    [
-                        'path' => 'uploads',
-                        'name' => 'Uploads'
+            if (!isset($app->controllerMap['elfinder-backend'])) {
+                $app->controllerMap['elfinder-backend'] = [
+                    'class' => 'mihaildev\elfinder\Controller',
+                    'user' => 'admin',
+                    'access' => ['@'],
+                    'disabledCommands' => ['netmount'],
+                    'roots' => [
+                        [
+                            'path' => 'uploads',
+                            'name' => 'Uploads'
+                        ],
                     ],
-                ],
-            ];
+                ];
+            }
 
             $app->i18n->translations['cms*']=[
                 'class' => PhpMessageSource::className(),
