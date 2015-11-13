@@ -37,7 +37,6 @@ class Bootstrap implements BootstrapInterface
                 'basePath' => '@nullref/cms/messages',
             ];
         }
-
         if (YII_ENV_DEV) {
             Event::on(Gii::className(), Gii::EVENT_BEFORE_ACTION, function (Event $event) {
                 /** @var Gii $gii */
@@ -51,5 +50,4 @@ class Bootstrap implements BootstrapInterface
             });
         }
     }
-
 }
