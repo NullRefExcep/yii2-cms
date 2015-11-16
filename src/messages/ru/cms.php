@@ -17,15 +17,17 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Config Block ({name})' => 'Настройки блока ({name})',
+    'Create Block ({name})' => '@@Создать блок ({name})@@',
     'Are you sure you want to delete this item?' => 'Вы уверенны что хотите удалить этот элемент?',
     'Available Blocks' => 'Доступные блоки',
+    'Block Name' => 'Название блока',
     'Block Type' => 'Тип блока',
     'Blocks' => 'Блоки',
     'CMS' => 'CMS',
     'Config' => 'Конфигурации',
     'Create' => 'Создать',
     'Create Block' => 'Создать блок',
-    'Create Block ({name})' => 'Создать блок ({name})',
     'Create Page' => 'Создать страницу',
     'Created At' => 'Создано',
     'Delete' => 'Удалить',

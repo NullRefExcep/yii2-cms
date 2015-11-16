@@ -17,17 +17,18 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Available Blocks' => 'Доступні блоки',
+    'Config Block ({name})' => 'Налаштування блоку ({name})',
     'ID' => '',
-    'Update {modelClass}: ' => 'Редагувати {modelClass}:',
+    'Create Block ({name})' => '@@Створити блок ({name})@@',
     'Are you sure you want to delete this item?' => 'Ви дійсно хочете видалити цей запис?',
+    'Available Blocks' => 'Доступні блоки',
+    'Block Name' => 'Назва блоку',
     'Block Type' => 'Тип блоку',
     'Blocks' => 'Блоки',
     'CMS' => 'Керування контентом',
     'Config' => 'Налаштування',
     'Create' => 'Створити',
     'Create Block' => 'Створити блок',
-    'Create Block ({name})' => 'Створити блок ({name})',
     'Create Page' => 'Створити сторінку',
     'Created At' => 'Створено',
     'Delete' => 'Видалити',
@@ -41,6 +42,7 @@ return [
     'Save' => 'Зберегти',
     'Title' => 'Заголовок',
     'Update' => 'Редагувати',
+    'Update {modelClass}: ' => 'Редагувати {modelClass}:',
     'Updated At' => 'Оновлено',
     'e.g. @app/views/layouts/main' => 'Наприклад @app/views/layouts/main',
 ];

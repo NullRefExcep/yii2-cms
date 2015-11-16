@@ -12,6 +12,7 @@ use nullref\cms\components\Block as CMSBlock;
  * This is the model class for table "{{%cms_block}}".
  *
  * @property string $id
+ * @property string $name
  * @property string $class_name
  * @property string $config
  * @property integer $createdAt
@@ -21,6 +22,12 @@ use nullref\cms\components\Block as CMSBlock;
  */
 class Block extends ActiveRecord
 {
+    /**
+     * Visibility levels
+     */
+    const VISIBILITY_PUBLIC = 1;
+    const VISIBILITY_PROTECTED = 2;
+
     /**
      * @inheritdoc
      */
@@ -49,7 +56,7 @@ class Block extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'class_name'], 'required'],
+            [['id', 'class_name', 'name'], 'required'],
             [['config'], 'string'],
             [['id'], 'unique'],
             [['createdAt', 'updatedAt'], 'integer'],
@@ -65,6 +72,7 @@ class Block extends ActiveRecord
         return [
             'id' => Yii::t('cms', 'ID'),
             'class_name' => Yii::t('cms', 'Block Type'),
+            'name' => Yii::t('cms', 'Block Name'),
             'config' => Yii::t('cms', 'Config'),
             'pages' => Yii::t('cms', 'Pages'),
             'createdAt' => Yii::t('cms', 'Created At'),

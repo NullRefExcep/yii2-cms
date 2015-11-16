@@ -19,13 +19,14 @@
 return [
     'Are you sure you want to delete this item?' => '',
     'Available Blocks' => '',
+    'Block Name' => '',
     'Block Type' => '',
     'Blocks' => '',
     'CMS' => '',
     'Config' => '',
+    'Config Block ({name})' => '',
     'Create' => '',
     'Create Block' => '',
-    'Create Block ({name})' => '',
     'Create Page' => '',
     'Created At' => '',
     'Delete' => '',
@@ -43,4 +44,5 @@ return [
     'Update {modelClass}: ' => '',
     'Updated At' => '',
     'e.g. @app/views/layouts/main' => '',
+    'Create Block ({name})' => '@@@@',
 ];

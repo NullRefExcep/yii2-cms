@@ -17,6 +17,8 @@ use nullref\cms\components\Block as CMSBlock;
 
     <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'class_name')->dropDownList(CMSBlock::getManager()->getDropDownArray(),['prompt'=>'']) ?>
 
     <div class="form-group">
