@@ -10,6 +10,11 @@ use yii\db\ActiveQuery;
  */
 class PageQuery extends ActiveQuery
 {
+    /**
+     * Find by rout param
+     * @param $route
+     * @return $this
+     */
     public function byRoute($route)
     {
         $this->andWhere(['route'=>$route]);

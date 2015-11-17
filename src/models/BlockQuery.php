@@ -1,20 +1,15 @@
 <?php
 
 namespace nullref\cms\models;
+use yii\db\ActiveQuery;
 
 /**
  * This is the ActiveQuery class for [[Block]].
  *
  * @see Block
  */
-class BlockQuery extends \yii\db\ActiveQuery
+class BlockQuery extends ActiveQuery
 {
-    /*public function active()
-    {
-        $this->andWhere('[[status]]=1');
-        return $this;
-    }*/
-
     /**
      * @inheritdoc
      * @return Block[]|array

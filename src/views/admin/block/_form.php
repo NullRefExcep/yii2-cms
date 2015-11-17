@@ -15,7 +15,9 @@ use nullref\cms\components\Block as CMSBlock;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+    <?php if($model->isNewRecord): ?>
+        <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+    <?php endif ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

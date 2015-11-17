@@ -7,6 +7,7 @@ use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
+use Yii;
 
 class BlockManager extends Component
 {
@@ -15,8 +16,17 @@ class BlockManager extends Component
 
     public $blocks = [];
 
+    public $emptyBlockClass = 'nullref\cms\blocks\EmptyBlock';
+
     protected $_blocks = [];
 
+    /**
+     * Register new block type
+     *
+     * @param $id
+     * @param $namespace
+     * @throws InvalidConfigException
+     */
     public function register($id, $namespace)
     {
         if (class_exists($namespace . self::CLASS_BLOCK) && class_exists($namespace . self::CLASS_WIDGET)) {
@@ -43,7 +53,7 @@ class BlockManager extends Component
      */
     public function getBlock($id)
     {
-        return \Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
+        return Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
     }
 
     /**
@@ -56,18 +66,30 @@ class BlockManager extends Component
     {
         /** @var BlockModel $block */
         $block = BlockModel::find()->where(['id' => $id])->one();
-        $config = ArrayHelper::merge($config, $block->getData());
-        $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
-        $widget = \Yii::createObject($config);
+        if ($block) {
+            $config = ArrayHelper::merge($config, $block->getData());
+            $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
+        } else {
+            $config = [
+                'class' => $this->emptyBlockClass,
+                'id' => $id,
+            ];
+        }
+        $widget = Yii::createObject($config);
         return $widget;
     }
 
+    /**
+     * Get list for dropdown of possible block types
+     * @return array
+     * @throws InvalidConfigException
+     */
     public function getDropDownArray()
     {
         $list = [];
         foreach ($this->getList() as $id => $path) {
             /** @var \nullref\cms\components\Block $block */
-            $block = \Yii::createObject($path . self::CLASS_BLOCK);
+            $block = Yii::createObject($path . self::CLASS_BLOCK);
             $list[$id] = $block->getName();
         }
         return $list;

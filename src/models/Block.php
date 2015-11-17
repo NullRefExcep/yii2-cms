@@ -106,7 +106,7 @@ class Block extends ActiveRecord
 
     public function getFullName()
     {
-        return $this->id . ' ('.$this->getTypeName().')';
+        return empty($this->name) ? $this->id : $this->name;
     }
 
     /**

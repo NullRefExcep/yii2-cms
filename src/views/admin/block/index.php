@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
+            'name',
             [
                 //'filter'=>\nullref\cms\components\Block::getManager()->getDropDownArray(),
                 'attribute' => 'class_name',
