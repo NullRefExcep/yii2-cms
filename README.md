@@ -70,7 +70,7 @@ To register block at runtime:
 Block structure convention
 --------------------------
 
- A valid block is represented by a folder with two classes:
+A valid block is represented by a folder with two classes:
 
 - Block - define data block to use
 - Widget - run with data when this block use on page
@@ -80,6 +80,20 @@ In most cases form file will also be in this folder
 When you add own block you have to set unique id and namespace of block files folder.
 
 
+Single block usage
+------------------
+
+You can use cms blocks on you own views, to call by id:
+
+```php
+use nullref\cms\components\Block;
+?>
+<div class="site-index">
+    <?= Block::getBlock('hello')->run() ?>
+    or
+    <?= Block::getBlock('hello2') //block has override method __toString() ?>
+</div>
+```
 
 Admin Panel
 ----------------------------
