@@ -12,9 +12,9 @@
         "yiisoft/yii2-jui": "~2.0.0",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
-        "nullref/yii2-useful": ">=0.0.1",
-        "nullref/yii2-core": ">=0.0.1",
-        "nullref/yii2-admin": ">=0.0.1",
+        "nullref/yii2-useful": "*",
+        "nullref/yii2-core": "*",
+        "nullref/yii2-admin": "*",
         "bower-asset/owl.carousel": "2.*",
         "trntv/yii2-aceeditor": "*"
     },
