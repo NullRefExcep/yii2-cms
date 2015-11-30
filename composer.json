@@ -14,7 +14,7 @@
         "mihaildev/yii2-elfinder": "*",
         "nullref/yii2-useful": "*",
         "nullref/yii2-core": "*",
-        "nullref/yii2-admin": "*",
+        "nullref/yii2-admin": "dev-master",
         "bower-asset/owl.carousel": "2.*",
         "trntv/yii2-aceeditor": "*"
     },
