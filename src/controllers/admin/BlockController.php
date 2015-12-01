@@ -2,17 +2,18 @@
 
 namespace nullref\cms\controllers\admin;
 
-use nullref\admin\components\AdminController;
 use nullref\cms\models\Block;
+use nullref\core\interfaces\IAdminController;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
  * BlockController implements the CRUD actions for Block model.
  */
-class BlockController extends AdminController
+class BlockController extends Controller implements IAdminController
 {
     public function behaviors()
     {

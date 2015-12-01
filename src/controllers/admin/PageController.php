@@ -2,17 +2,18 @@
 
 namespace nullref\cms\controllers\admin;
 
+use nullref\core\interfaces\IAdminController;
 use Yii;
 use nullref\cms\models\Page;
 use yii\data\ActiveDataProvider;
-use nullref\admin\components\AdminController;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * PageController implements the CRUD actions for Page model.
  */
-class PageController extends AdminController
+class PageController extends Controller implements IAdminController
 {
     public function behaviors()
     {
