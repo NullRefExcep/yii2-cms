@@ -1,6 +1,7 @@
 <?php
 
 use mihaildev\elfinder\InputFile;
+use nullref\cms\Module;
 
 /**
  * @var $form \yii\widgets\ActiveForm
@@ -9,12 +10,12 @@ use mihaildev\elfinder\InputFile;
 
 echo $form->field($block, 'image')->widget(InputFile::className(), [
     'language'      => 'ru',
-    'controller'    => 'elfinder-backend', // вставляем название контроллера, по умолчанию равен elfinder
-    'filter'        => 'image',    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+    'controller'    => Module::getFileControllerId(),
+    'filter'        => 'image',
     'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
     'options'       => ['class' => 'form-control'],
     'buttonOptions' => ['class' => 'btn btn-default'],
-    'multiple'      => false       // возможность выбора нескольких файлов
+    'multiple'      => false
 ]);
 echo $form->field($block, 'alt')->textInput();
 echo $form->field($block, 'width')->textInput();

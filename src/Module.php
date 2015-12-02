@@ -15,6 +15,8 @@ class Module extends BaseModule implements IAdminModule
 {
     public $urlPrefix = '/pages';
 
+    public $fileControllerId = 'elfinder-backend';
+
     public $blockManagerClass = 'nullref\cms\components\BlockManager';
 
     public function init()
@@ -24,6 +26,15 @@ class Module extends BaseModule implements IAdminModule
         $this->setComponents([
             'blockManager' => $this->blockManagerClass,
         ]);
+    }
+
+    public static function getFileControllerId()
+    {
+        /** @var $module Module */
+        if (($module = Yii::$app->getModule('cms')) != null){
+            return $module->fileControllerId;
+        }
+        return 'elfinder-backend';
     }
 
     public static function getAdminMenu()
