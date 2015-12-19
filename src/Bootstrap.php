@@ -15,7 +15,7 @@ class Bootstrap implements BootstrapInterface
         if ($app instanceof WebApplication) {
             $prefix = $app->getModule('cms')->urlPrefix;
             $app->urlManager->addRules([
-                $prefix . '/<route:[a-zA-Z0-9-/]+>' => '/cms/page/view'
+                $prefix . '/<route:[_a-zA-Z0-9-/]+>' => '/cms/page/view'
             ]);
             if (!isset($app->controllerMap['elfinder-backend'])) {
                 $app->controllerMap['elfinder-backend'] = [
