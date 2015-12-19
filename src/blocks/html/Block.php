@@ -3,6 +3,7 @@
 namespace nullref\cms\blocks\html;
 
 use nullref\cms\components\Block as BaseBlock;
+
 /**
  * Class Block
  */
@@ -20,7 +21,8 @@ class Block extends BaseBlock
     public function rules()
     {
         return [
-            [['content','tag','tagClass'],'required'],
+            [['content', 'tag'], 'required'],
+            [['tagClass'], 'string'],
         ];
     }
 

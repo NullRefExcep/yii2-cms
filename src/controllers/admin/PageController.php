@@ -2,13 +2,13 @@
 
 namespace nullref\cms\controllers\admin;
 
+use nullref\cms\models\Page;
 use nullref\core\interfaces\IAdminController;
 use Yii;
-use nullref\cms\models\Page;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -108,11 +108,11 @@ class PageController extends Controller implements IAdminController
     public function actionWysiwyg($id)
     {
         $model = $this->findModel($id);
-        if ($model->layout){
+        if ($model->layout) {
             $this->layout = $model->layout;
         }
-        return $this->render('wysiwyg',[
-            'model'=>$model,
+        return $this->render('wysiwyg', [
+            'model' => $model,
         ]);
     }
 

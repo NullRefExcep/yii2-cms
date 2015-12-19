@@ -107,7 +107,7 @@ class BlockController extends Controller implements IAdminController
     {
         $model = Yii::createObject(Block::className());
 
-        if ($pageId = Yii::$app->request->get('page_id')){
+        if ($pageId = Yii::$app->request->get('page_id')) {
             $model->visibility = Block::VISIBILITY_PROTECTED;
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -132,7 +132,7 @@ class BlockController extends Controller implements IAdminController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $pageId = Yii::$app->request->get('page_id');
-            return $this->redirect(['config','id'=>$model->id, 'page_id' => $pageId]);
+            return $this->redirect(['config', 'id' => $model->id, 'page_id' => $pageId]);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -2,10 +2,10 @@
 
 namespace nullref\cms;
 
+use nullref\cms\components\PageLayoutManager;
 use nullref\core\components\Module as BaseModule;
 use nullref\core\interfaces\IAdminModule;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -23,15 +23,15 @@ class Module extends BaseModule implements IAdminModule
     public function __construct($id, $parent = null, $config = [])
     {
         $config = ArrayHelper::merge([
-            'components'=>[
-                'layoutManager'=>[
-                    'class'=>'\nullref\cms\components\PageLayoutManager',
+            'components' => [
+                'layoutManager' => [
+                    'class' => '\nullref\cms\components\PageLayoutManager',
                 ],
-                'blockManager'=>[
-                    'class'=>'nullref\cms\components\BlockManager',
+                'blockManager' => [
+                    'class' => 'nullref\cms\components\BlockManager',
                 ],
             ],
-        ],$config);
+        ], $config);
         parent::__construct($id, $parent, $config);
     }
 
@@ -40,7 +40,7 @@ class Module extends BaseModule implements IAdminModule
         return [
             'label' => Yii::t('cms', 'CMS'),
             'icon' => 'columns',
-            'items'=>[
+            'items' => [
                 [
                     'label' => Yii::t('cms', 'Pages'),
                     'icon' => 'copy',

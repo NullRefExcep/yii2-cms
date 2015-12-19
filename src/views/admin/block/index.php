@@ -41,11 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:datetime',
             'updated_at:datetime',
             [
-              'attribute'=>'pages',
-                'format'=>'html',
-                'value'=>function(Block $model){
-                    $names = \yii\helpers\ArrayHelper::getColumn($model->pages,function(Page $page){
-                        return Html::a($page->title,['/cms/admin/page/update','id'=>$page->id],['class'=>'label label-primary']);
+                'attribute' => 'pages',
+                'format' => 'html',
+                'value' => function (Block $model) {
+                    $names = \yii\helpers\ArrayHelper::getColumn($model->pages, function (Page $page) {
+                        return Html::a($page->title, ['/cms/admin/page/update', 'id' => $page->id], ['class' => 'label label-primary']);
                     });
                     return implode(' ', $names);
                 }

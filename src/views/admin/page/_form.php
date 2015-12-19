@@ -2,10 +2,9 @@
 
 use nullref\cms\assets\PageFormAssets;
 use nullref\cms\models\Block as BlockModel;
-use yii\helpers\Html;
-use yii\helpers\Json;
-use yii\widgets\ActiveForm;
 use rmrevin\yii\fontawesome\FA;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model nullref\cms\models\Page */
@@ -52,9 +51,9 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <?= Yii::t('cms', 'Page Content') ?>
-                    <?= Html::a(FA::i(FA::_CLONE),['wysiwyg','id'=>$model->id],[
-                        'class'=>'btn btn-xs btn-primary pull-right',
-                        'target'=>'blank',
+                    <?= Html::a(FA::i(FA::_CLONE), ['wysiwyg', 'id' => $model->id], [
+                        'class' => 'btn btn-xs btn-primary pull-right',
+                        'target' => 'blank',
                     ]) ?>
                 </div>
                 <ul class="list-group page-items-list" id="pageItemsList">
@@ -68,11 +67,11 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
                             </button>
                             <?= Html::a(
                                 FA::i(FA::_COG),
-                                ['/cms/admin/block/update','id'=>$item->block_id,'page_id'=>$model->id],
-                                ['class'=>'btn btn-xs btn-success']
-                                ) ?>
-                            <?php if($item->block): ?>
-                                <i class="fa fa-<?= $item->block->isPublic()?FA::_EYE:FA::_EYE_SLASH ?>"></i>
+                                ['/cms/admin/block/update', 'id' => $item->block_id, 'page_id' => $model->id],
+                                ['class' => 'btn btn-xs btn-success']
+                            ) ?>
+                            <?php if ($item->block): ?>
+                                <i class="fa fa-<?= $item->block->isPublic() ? FA::_EYE : FA::_EYE_SLASH ?>"></i>
                             <?php endif ?>
 
                             <input type="hidden" name="PageHasBlock[<?= $item->id ?>][block_id]"

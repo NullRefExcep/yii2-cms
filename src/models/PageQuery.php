@@ -1,6 +1,7 @@
 <?php
 
 namespace nullref\cms\models;
+
 use yii\db\ActiveQuery;
 
 /**
@@ -17,7 +18,7 @@ class PageQuery extends ActiveQuery
      */
     public function byRoute($route)
     {
-        $this->andWhere(['route'=>$route]);
+        $this->andWhere(['route' => $route]);
         return $this;
     }
 

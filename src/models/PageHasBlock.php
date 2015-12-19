@@ -60,6 +60,6 @@ class PageHasBlock extends ActiveRecord
      */
     public function getBlock()
     {
-      return $this->hasOne(Block::className(),['id'=>'block_id']);
+        return $this->hasOne(Block::className(), ['id' => 'block_id']);
     }
 }

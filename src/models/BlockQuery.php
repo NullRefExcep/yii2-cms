@@ -1,6 +1,7 @@
 <?php
 
 namespace nullref\cms\models;
+
 use yii\db\ActiveQuery;
 
 /**

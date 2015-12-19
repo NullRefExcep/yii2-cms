@@ -1,7 +1,7 @@
 <?php
 
 use mihaildev\ckeditor\CKEditor;
-use \yii\web\View;
+use yii\web\View;
 
 /**
  * @var $form \yii\widgets\ActiveForm
@@ -18,6 +18,15 @@ echo $form->field($block, 'content')->widget(CKEditor::className(), [
         'preset' => 'full',
         'inline' => false,
         'extraPlugins' => 'codemirror',
+        'allowedContent' => true,
+        'basicEntities' => false,
+        'entities' => false,
+        'entities_greek' => false,
+        'entities_latin' => false,
+        'htmlEncodeOutput' => false,
+        'entities_processNumerical' => false,
+        'fillEmptyBlocks' => false,
+        'fullPage' => false,
         'codemirror' => [
             'autoCloseBrackets' => true,
             'autoCloseTags' => true,

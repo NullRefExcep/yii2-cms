@@ -18,6 +18,6 @@ class Widget extends BaseWidget
 
     public function run()
     {
-        return Html::tag($this->tag, $this->content,['class'=>$this->tagClass]);
+        return Html::tag($this->tag, $this->content, ['class' => $this->tagClass]);
     }
 }

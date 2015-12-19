@@ -2,11 +2,11 @@
 
 namespace nullref\cms\models;
 
+use nullref\cms\components\Block as CMSBlock;
 use nullref\cms\components\Widget;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use nullref\cms\components\Block as CMSBlock;
 
 /**
  * This is the model class for table "{{%cms_block}}".
@@ -35,8 +35,8 @@ class Block extends ActiveRecord
     public static function getVisibilityList()
     {
         return [
-            self::VISIBILITY_PUBLIC => Yii::t('cms','Public visibility'),
-            self::VISIBILITY_PROTECTED => Yii::t('cms','Protected visibility'),
+            self::VISIBILITY_PUBLIC => Yii::t('cms', 'Public visibility'),
+            self::VISIBILITY_PROTECTED => Yii::t('cms', 'Protected visibility'),
         ];
     }
 
@@ -54,8 +54,8 @@ class Block extends ActiveRecord
     public function behaviors()
     {
         return [
-            'timestamp'=>[
-                'class'=>TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
             ]
@@ -147,7 +147,7 @@ class Block extends ActiveRecord
      */
     public function getPages()
     {
-        return $this->hasMany(Page::className(),['id'=>'page_id'])->viaTable(PageHasBlock::tableName(),['block_id'=>'id']);
+        return $this->hasMany(Page::className(), ['id' => 'page_id'])->viaTable(PageHasBlock::tableName(), ['block_id' => 'id']);
     }
 
     public function isPublic()

@@ -3,6 +3,7 @@
 namespace nullref\cms\blocks\carousel;
 
 use nullref\cms\components\Block as BaseBlock;
+
 /**
  * Class Block
  */

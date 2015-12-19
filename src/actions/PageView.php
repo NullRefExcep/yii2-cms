@@ -19,13 +19,13 @@ class PageView extends Action
     public function run()
     {
         if (($route = Yii::$app->request->getQueryParam('route')) == null) {
-            throw new NotFoundHttpException(Yii::t('cms','Page not found.'));
+            throw new NotFoundHttpException(Yii::t('cms', 'Page not found.'));
         }
         $page = Page::find()->byRoute($route)->one();
         if (!isset($page)) {
-            throw new NotFoundHttpException(Yii::t('cms','Page not found.'));
+            throw new NotFoundHttpException(Yii::t('cms', 'Page not found.'));
         }
-        if ($page->layout){
+        if ($page->layout) {
             $this->controller->layout = $page->layout;
         }
         return $this->controller->render($this->view, [

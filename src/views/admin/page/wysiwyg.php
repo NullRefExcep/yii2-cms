@@ -1,7 +1,7 @@
 <?php
 
-use nullref\cms\blocks\EmptyBlock;
 use nullref\cms\assets\PageWysiwygAssets;
+use nullref\cms\blocks\EmptyBlock;
 
 
 /** @var $this \yii\web\View */

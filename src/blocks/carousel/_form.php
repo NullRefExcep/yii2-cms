@@ -1,7 +1,7 @@
 <?php
 
 use mihaildev\ckeditor\CKEditor;
-use \yii\web\View;
+use yii\web\View;
 
 /**
  * @var $form \yii\widgets\ActiveForm

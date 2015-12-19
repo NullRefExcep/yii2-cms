@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model nullref\cms\models\Block */
 
 $this->title = Yii::t('cms', 'Update {modelClass}: ', [
-    'modelClass' => 'Block',
-]) . ' ' . $model->id;
+        'modelClass' => 'Block',
+    ]) . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('cms', 'Blocks'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('cms', 'Update');

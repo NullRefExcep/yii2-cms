@@ -3,6 +3,7 @@
 namespace nullref\cms\blocks\image;
 
 use nullref\cms\components\Block as BaseBlock;
+
 /**
  * Class Block
  */
@@ -21,7 +22,7 @@ class Block extends BaseBlock
     public function rules()
     {
         return [
-            [['image','alt', 'width','height'],'required'],
+            [['image', 'alt', 'width', 'height'], 'required'],
         ];
     }
 }

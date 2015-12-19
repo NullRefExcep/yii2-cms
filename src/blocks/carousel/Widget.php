@@ -5,9 +5,9 @@
 
 namespace nullref\cms\blocks\carousel;
 
+use nullref\cms\assets\owlCarousel\OwlCarousel2;
 use nullref\cms\blocks\text\Widget as BaseWidget;
 use yii\helpers\Html;
-use nullref\cms\assets\owlCarousel\OwlCarousel2;
 
 
 class Widget extends BaseWidget
@@ -30,12 +30,12 @@ JS
 
         return
             Html::beginTag($this->tag, ['class' => $this->sliderWrapperName]) .
-                Html::beginTag('div', [
-                    'class' => $this->defaultSliderName . ' owl-carousel',
-                    'id' => $this->carouselId
-                    ]) .
-                    $this->content .
-                Html::endTag('div') .
+            Html::beginTag('div', [
+                'class' => $this->defaultSliderName . ' owl-carousel',
+                'id' => $this->carouselId
+            ]) .
+            $this->content .
+            Html::endTag('div') .
             Html::endTag($this->tag);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use nullref\cms\components\Block as CMSBlock;
 use nullref\cms\models\Block;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model nullref\cms\models\Block */
@@ -18,11 +18,11 @@ use nullref\cms\models\Block;
 
     <div class="row">
         <div class="col-md-6">
-            <?php if($model->isNewRecord): ?>
+            <?php if ($model->isNewRecord): ?>
                 <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
             <?php endif ?>
 
-            <?= $form->field($model, 'class_name')->dropDownList(CMSBlock::getManager()->getDropDownArray(),['prompt'=>'']) ?>
+            <?= $form->field($model, 'class_name')->dropDownList(CMSBlock::getManager()->getDropDownArray(), ['prompt' => '']) ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

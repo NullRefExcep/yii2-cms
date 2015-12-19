@@ -2,8 +2,8 @@
 
 namespace nullref\cms\generators\migration;
 
-use Yii;
 use nullref\cms\models\Block;
+use Yii;
 use yii\gii\CodeFile;
 use yii\gii\Generator as BaseGenerator;
 
