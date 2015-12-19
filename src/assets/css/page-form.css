@@ -1,0 +1,13 @@
+.hint-block {
+    font-size: 12px;
+    padding: 2px;
+    opacity: 0.7;
+}
+
+.hint-block:hover {
+    opacity: 1;
+}
+
+.page-items-list .list-group-item {
+    cursor: pointer;
+}

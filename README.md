@@ -39,7 +39,9 @@ You can override it:
 ```php
     'cms' => [
         'class' => 'nullref\\cms\\Module',
-        'blockManagerClass' => 'app\components\BlockManager',
+        'components' => [
+            'blockManager' => 'app\components\BlockManager',
+        ]
     ],
 ```
 

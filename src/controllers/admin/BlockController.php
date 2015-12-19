@@ -3,6 +3,7 @@
 namespace nullref\cms\controllers\admin;
 
 use nullref\cms\models\Block;
+use nullref\cms\models\PageHasBlock;
 use nullref\core\interfaces\IAdminController;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -52,7 +53,17 @@ class BlockController extends Controller implements IAdminController
             $model->setData($block);
             $model->save();
             Yii::$app->session->remove('new-block');
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            /** Create relation when path page_id parameter */
+            if ($pageId = Yii::$app->request->get('page_id')) {
+                if ($model->isNewRecord) {
+                    $pageHasBlock = new PageHasBlock(['page_id' => $pageId, 'block_id' => $model->id]);
+                    $pageHasBlock->save(false, ['page_id', 'block_id']);
+                }
+                return $this->redirect(['/cms/admin/page/update', 'id' => $pageId]);
+            }
+
+            return $this->redirect(['view', 'id' => $model->id, 'page_id' => $pageId]);
         }
 
         return $this->render('config', [
@@ -67,7 +78,7 @@ class BlockController extends Controller implements IAdminController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Block::find(),
+            'query' => Block::find()->where(['visibility' => Block::VISIBILITY_PUBLIC]),
         ]);
 
         return $this->render('index', [
@@ -96,9 +107,12 @@ class BlockController extends Controller implements IAdminController
     {
         $model = Yii::createObject(Block::className());
 
+        if ($pageId = Yii::$app->request->get('page_id')){
+            $model->visibility = Block::VISIBILITY_PROTECTED;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::$app->session->set('new-block', $model);
-            return $this->redirect(['config']);
+            return $this->redirect(['config', 'page_id' => $pageId]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -116,9 +130,9 @@ class BlockController extends Controller implements IAdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            Yii::$app->session->set('new-block', $model);
-            return $this->redirect(['config']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $pageId = Yii::$app->request->get('page_id');
+            return $this->redirect(['config','id'=>$model->id, 'page_id' => $pageId]);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -105,6 +105,17 @@ class PageController extends Controller implements IAdminController
         return $this->redirect(['index']);
     }
 
+    public function actionWysiwyg($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->layout){
+            $this->layout = $model->layout;
+        }
+        return $this->render('wysiwyg',[
+            'model'=>$model,
+        ]);
+    }
+
     /**
      * Finds the Page model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

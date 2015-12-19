@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'class_name',
                 'value' => 'typeName'
             ],
-            'createdAt:datetime',
-            'updatedAt:datetime',
+            'created_at:datetime',
+            'updated_at:datetime',
             [
               'attribute'=>'pages',
                 'format'=>'html',

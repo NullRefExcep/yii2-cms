@@ -6,35 +6,33 @@ use nullref\core\components\Module as BaseModule;
 use nullref\core\interfaces\IAdminModule;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class Module
  * @package nullref\blog
+ *
+ *
+ * @property PageLayoutManager $layoutManager
+ *
  */
 class Module extends BaseModule implements IAdminModule
 {
     public $urlPrefix = '/pages';
 
-    public $fileControllerId = 'elfinder-backend';
-
-    public $blockManagerClass = 'nullref\cms\components\BlockManager';
-
-    public function init()
+    public function __construct($id, $parent = null, $config = [])
     {
-        parent::init();
-
-        $this->setComponents([
-            'blockManager' => $this->blockManagerClass,
-        ]);
-    }
-
-    public static function getFileControllerId()
-    {
-        /** @var $module Module */
-        if (($module = Yii::$app->getModule('cms')) != null){
-            return $module->fileControllerId;
-        }
-        return 'elfinder-backend';
+        $config = ArrayHelper::merge([
+            'components'=>[
+                'layoutManager'=>[
+                    'class'=>'\nullref\cms\components\PageLayoutManager',
+                ],
+                'blockManager'=>[
+                    'class'=>'nullref\cms\components\BlockManager',
+                ],
+            ],
+        ],$config);
+        parent::__construct($id, $parent, $config);
     }
 
     public static function getAdminMenu()

@@ -1,86 +1,23 @@
 <?php
 
+use nullref\cms\assets\PageFormAssets;
 use nullref\cms\models\Block as BlockModel;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\jui\JuiAsset;
 use yii\widgets\ActiveForm;
+use rmrevin\yii\fontawesome\FA;
 
 /* @var $this yii\web\View */
 /* @var $model nullref\cms\models\Page */
 /* @var $form yii\widgets\ActiveForm */
 /** @var BlockModel[] $blocks */
 $blocks = BlockModel::find()->indexBy('id')->all();
-$blocksJson = Json::encode($blocks);
-$itemsJson = Json::encode($model->items_list);
 
-JuiAsset::register($this);
-$this->registerJs(<<<JS
-String.prototype.replaceAll = function (find, replace) {
-    var str = this;
-    return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace);
-};
-var pageItemsList = jQuery('#pageItemsList');
-var pageItemTmpl = jQuery('#pageItemTmpl');
-var blocksList = jQuery('#blocksList');
-var itemsJson = $itemsJson;
-var idCounter = 1;
+PageFormAssets::register($this);
 
 
-blocksList.on('click','[data-action="add-block"]', function(e) {
-  addBlock(jQuery(this).data());
-  e.preventDefault(e);
-  return false;
-});
-
-pageItemsList.on('click','[data-action="remove-block"]', function(e) {
-  jQuery(this).parents('.list-group-item').remove();
-  e.preventDefault(e);
-  return false;
-});
-
-
-pageItemsList.sortable({
-        stop: function () {
-            pageItemsList.find('[name$="[order]"]').each(function(index) {
-                jQuery(this).val(index);
-            });
-        }
-});
-
-pageItemsList.disableSelection();
-
-function addBlock(data) {
-    var item = pageItemTmpl.clone();
-    item.removeAttr('id');
-    var html = item.html()
-    .replaceAll(':id','new_'+(idCounter++))
-    .replaceAll(':block_id',data.id)
-    .replaceAll(':name',data.name)
-    .replaceAll(':order',pageItemsList.find('li').length);
-    item.html(html);
-    pageItemsList.append(item);
-    pageItemsList.sortable( "refresh" );
-}
-JS
-);
-
-$this->registerCss(<<<CSS
-.hint-block {
-    font-size: 12px;
-    padding: 2px;
-    opacity: 0.7;
-}
-
-.hint-block:hover {
-    opacity: 1;
-}
-
-.page-items-list .list-group-item {
-    cursor: pointer;
-}
-CSS
-);
+/** @var \nullref\cms\components\PageLayoutManager $layoutManager */
+$layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
 ?>
 <div class="hide">
     <li class="list-group-item" id="pageItemTmpl">
@@ -109,15 +46,19 @@ CSS
 
             <?= $form->field($model, 'route')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'layout')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'layout')->dropDownList($layoutManager->getList()) ?>
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><?= Yii::t('cms','Page Content') ?></div>
+                <div class="panel-heading">
+                    <?= Yii::t('cms', 'Page Content') ?>
+                    <?= Html::a(FA::i(FA::_CLONE),['wysiwyg','id'=>$model->id],[
+                        'class'=>'btn btn-xs btn-primary pull-right',
+                        'target'=>'blank',
+                    ]) ?>
+                </div>
                 <ul class="list-group page-items-list" id="pageItemsList">
                     <?php foreach ($model->items_list as $item): ?>
-
-
                         <li class="list-group-item">
                             <button type="button"
                                     class="btn btn-danger btn-xs"
@@ -125,19 +66,35 @@ CSS
                                     data-id="">
                                 <i class="fa fa-close"></i>
                             </button>
+                            <?= Html::a(
+                                FA::i(FA::_COG),
+                                ['/cms/admin/block/update','id'=>$item->block_id,'page_id'=>$model->id],
+                                ['class'=>'btn btn-xs btn-success']
+                                ) ?>
+                            <?php if($item->block): ?>
+                                <i class="fa fa-<?= $item->block->isPublic()?FA::_EYE:FA::_EYE_SLASH ?>"></i>
+                            <?php endif ?>
+
                             <input type="hidden" name="PageHasBlock[<?= $item->id ?>][block_id]"
                                    value="<?= $item->block_id ?>">
-                            <input type="hidden" name="PageHasBlock[<?= $item->id ?>][order]" value="<?= $item->order ?>">
-                            <?= $item->block->getFullName() ?>
+                            <input type="hidden" name="PageHasBlock[<?= $item->id ?>][order]"
+                                   value="<?= $item->order ?>">
+                            <?= $item->block ? $item->block->getFullName() : Yii::t('cms', 'Block "{id}" not found', ['id' => $item->block_id]) ?>
                             <i class="fa fa-bars pull-right"></i>
                         </li>
                     <?php endforeach ?>
                 </ul>
+                <?php if (!$model->isNewRecord): ?>
+                    <div class="panel-footer">
+                        <?= Html::a(Yii::t('cms', 'Add new block'), ['/cms/admin/block/create', 'page_id' => $model->id], ['class' => 'btn btn-sm btn-primary']) ?>
+                    </div>
+                <?php endif ?>
+
             </div>
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><?= Yii::t('cms','Available Blocks') ?></div>
+                <div class="panel-heading"><?= Yii::t('cms', 'Available Blocks') ?></div>
                 <ul class="list-group" id="blocksList">
                     <?php foreach ($blocks as $id => $block): ?>
                         <li class="list-group-item">
@@ -161,7 +118,7 @@ CSS
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('cms', 'Create') : Yii::t('cms', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('cms', 'Create') : Yii::t('cms', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

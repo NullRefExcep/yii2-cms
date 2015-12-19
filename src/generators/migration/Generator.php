@@ -28,8 +28,8 @@ class Generator extends BaseGenerator
         $commands = "['id' => '$selectedBlock->id'," .
             "'class_name' => '$selectedBlock->class_name'," .
             "'config' => '{$selectedBlock->config}'," .
-            "'createdAt' => $time," .
-            "'updatedAt' => $time,]";
+            "'created_at' => $time," .
+            "'updated_at' => $time,]";
 
         $files = [];
         $name = 'm' . gmdate('ymd_Hi') . '00_block_' . $selectedBlock->id;

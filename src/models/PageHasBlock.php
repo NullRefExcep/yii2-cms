@@ -12,8 +12,8 @@ use yii\db\ActiveRecord;
  * @property integer $page_id
  * @property string $block_id
  * @property double $order
- * @property integer $createdAt
- * @property integer $updatedAt
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property Block $block
  */
@@ -33,7 +33,7 @@ class PageHasBlock extends ActiveRecord
     public function rules()
     {
         return [
-            [['page_id', 'createdAt', 'updatedAt'], 'integer'],
+            [['page_id', 'created_at', 'updated_at'], 'integer'],
             [['block_id', 'order'], 'required'],
             [['order'], 'number'],
             [['block_id'], 'string', 'max' => 255],
@@ -50,8 +50,8 @@ class PageHasBlock extends ActiveRecord
             'page_id' => 'Page ID',
             'block_id' => 'Block ID',
             'order' => 'Order',
-            'createdAt' => 'Created At',
-            'updatedAt' => 'Updated At',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 

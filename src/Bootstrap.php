@@ -12,11 +12,8 @@ class Bootstrap implements BootstrapInterface
 {
     public function bootstrap($app)
     {
-        if (($module = $app->getModule('cms'))==null) {
-            return;
-        }
         if ($app instanceof WebApplication) {
-            $prefix = $module->urlPrefix;
+            $prefix = $app->getModule('cms')->urlPrefix;
             $app->urlManager->addRules([
                 $prefix . '/<route:[a-zA-Z0-9-/]+>' => '/cms/page/view'
             ]);
@@ -40,7 +37,7 @@ class Bootstrap implements BootstrapInterface
                 'basePath' => '@nullref/cms/messages',
             ];
         }
-        if (YII_ENV_DEV && class_exists('yii\gii\Module')) {
+        if (YII_ENV_DEV) {
             Event::on(Gii::className(), Gii::EVENT_BEFORE_ACTION, function (Event $event) {
                 /** @var Gii $gii */
                 $gii = $event->sender;

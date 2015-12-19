@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'route',
             'title',
             'layout',
-            'createdAt',
-            'updatedAt',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

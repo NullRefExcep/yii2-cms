@@ -15,8 +15,9 @@ use nullref\cms\components\Block as CMSBlock;
  * @property string $name
  * @property string $class_name
  * @property string $config
- * @property integer $createdAt
- * @property integer $updatedAt
+ * @property integer $visibility
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property Page[] $pages
  */
@@ -27,6 +28,17 @@ class Block extends ActiveRecord
      */
     const VISIBILITY_PUBLIC = 1;
     const VISIBILITY_PROTECTED = 2;
+
+    /**
+     * @return array
+     */
+    public static function getVisibilityList()
+    {
+        return [
+            self::VISIBILITY_PUBLIC => Yii::t('cms','Public visibility'),
+            self::VISIBILITY_PROTECTED => Yii::t('cms','Protected visibility'),
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -44,8 +56,8 @@ class Block extends ActiveRecord
         return [
             'timestamp'=>[
                 'class'=>TimestampBehavior::className(),
-                'createdAtAttribute' => 'createdAt',
-                'updatedAtAttribute' => 'updatedAt',
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
             ]
         ];
     }
@@ -59,7 +71,7 @@ class Block extends ActiveRecord
             [['id', 'class_name', 'name'], 'required'],
             [['config'], 'string'],
             [['id'], 'unique'],
-            [['createdAt', 'updatedAt'], 'integer'],
+            [['visibility', 'created_at', 'updated_at'], 'integer'],
             [['id', 'class_name'], 'string', 'max' => 255],
         ];
     }
@@ -75,8 +87,9 @@ class Block extends ActiveRecord
             'name' => Yii::t('cms', 'Block Name'),
             'config' => Yii::t('cms', 'Config'),
             'pages' => Yii::t('cms', 'Pages'),
-            'createdAt' => Yii::t('cms', 'Created At'),
-            'updatedAt' => Yii::t('cms', 'Updated At'),
+            'visibility' => Yii::t('cms', 'Visibility'),
+            'created_at' => Yii::t('cms', 'Created At'),
+            'updated_at' => Yii::t('cms', 'Updated At'),
         ];
     }
 
@@ -89,21 +102,33 @@ class Block extends ActiveRecord
         return new BlockQuery(get_called_class());
     }
 
+    /**
+     * @return mixed
+     */
     public function getTypeName()
     {
         return CMSBlock::getManager()->getBlock($this->class_name)->getName();
     }
 
+    /**
+     * @return mixed
+     */
     public function getData()
     {
         return unserialize($this->config);
     }
 
+    /**
+     * @param CMSBlock $block
+     */
     public function setData(CMSBlock $block)
     {
         $this->config = serialize($block->getConfig());
     }
 
+    /**
+     * @return string
+     */
     public function getFullName()
     {
         return empty($this->name) ? $this->id : $this->name;
@@ -123,5 +148,10 @@ class Block extends ActiveRecord
     public function getPages()
     {
         return $this->hasMany(Page::className(),['id'=>'page_id'])->viaTable(PageHasBlock::tableName(),['block_id'=>'id']);
+    }
+
+    public function isPublic()
+    {
+        return $this->visibility == self::VISIBILITY_PUBLIC;
     }
 }

@@ -14,10 +14,11 @@ use yii\db\ActiveRecord;
  * @property string $route
  * @property string $title
  * @property string $layout
- * @property integer $createdAt
- * @property integer $updatedAt
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  *
+ * @property string $layoutTitle
  * @property PageHasBlock[] $items
  * @property PageHasBlock[] $items_list
  *
@@ -41,8 +42,8 @@ class Page extends ActiveRecord
         return [
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'createdAt',
-                'updatedAtAttribute' => 'updatedAt',
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
             ],
             'related' => [
                 'class' => RelatedBehavior::className(),
@@ -56,22 +57,11 @@ class Page extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeHints()
-    {
-        return [
-            'layout' => Yii::t('cms', 'e.g. @app/views/layouts/main'),
-        ];
-    }
-
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['route', 'title', 'layout'], 'required'],
-            [['createdAt', 'updatedAt'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['route', 'title', 'layout'], 'string', 'max' => 255],
             [['layout'], 'validateAlias'],
         ];
@@ -103,9 +93,19 @@ class Page extends ActiveRecord
             'route' => Yii::t('cms', 'Route'),
             'title' => Yii::t('cms', 'Title'),
             'layout' => Yii::t('cms', 'Layout'),
-            'createdAt' => Yii::t('cms', 'Created At'),
-            'updatedAt' => Yii::t('cms', 'Updated At'),
+            'created_at' => Yii::t('cms', 'Created At'),
+            'updated_at' => Yii::t('cms', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLayoutTitle()
+    {
+        /** @var \nullref\cms\components\PageLayoutManager $layoutManager */
+        $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
+        return $layoutManager->getValue($this->layout);
     }
 
     /**
