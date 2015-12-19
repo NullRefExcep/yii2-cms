@@ -56,7 +56,7 @@ class BlockController extends Controller implements IAdminController
 
             /** Create relation when path page_id parameter */
             if ($pageId = Yii::$app->request->get('page_id')) {
-                if ($model->isNewRecord) {
+                if ($id === null) {
                     $pageHasBlock = new PageHasBlock(['page_id' => $pageId, 'block_id' => $model->id]);
                     $pageHasBlock->save(false, ['page_id', 'block_id']);
                 }
@@ -78,7 +78,7 @@ class BlockController extends Controller implements IAdminController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Block::find()->where(['visibility' => Block::VISIBILITY_PUBLIC]),
+            'query' => Block::find()->visible(),
         ]);
 
         return $this->render('index', [

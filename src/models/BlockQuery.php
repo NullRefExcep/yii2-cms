@@ -27,4 +27,9 @@ class BlockQuery extends ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function visible()
+    {
+        return $this->where(['visibility' => Block::VISIBILITY_PUBLIC]);
+    }
 }

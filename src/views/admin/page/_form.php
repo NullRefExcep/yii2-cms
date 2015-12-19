@@ -11,7 +11,7 @@ use rmrevin\yii\fontawesome\FA;
 /* @var $model nullref\cms\models\Page */
 /* @var $form yii\widgets\ActiveForm */
 /** @var BlockModel[] $blocks */
-$blocks = BlockModel::find()->indexBy('id')->all();
+$blocks = BlockModel::find()->visible()->indexBy('id')->all();
 
 PageFormAssets::register($this);
 
