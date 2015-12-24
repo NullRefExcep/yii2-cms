@@ -27,6 +27,8 @@ class Generator extends BaseGenerator
         $time = $time->getTimestamp();
         $commands = "['id' => '$selectedBlock->id'," .
             "'class_name' => '$selectedBlock->class_name'," .
+            "'name' => '$selectedBlock->name'," .
+            "'visibility' => '$selectedBlock->visibility'," .
             "'config' => '{$selectedBlock->config}'," .
             "'created_at' => $time," .
             "'updated_at' => $time,]";
