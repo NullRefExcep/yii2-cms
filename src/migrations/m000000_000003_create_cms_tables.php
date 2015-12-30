@@ -30,23 +30,23 @@ class m000000_000003_create_cms_tables extends Migration
          * Create page table
          */
         $this->createTable($this->tables['page'], [
-            'id' => Schema::TYPE_PK,
-            'route' => Schema::TYPE_STRING . ' NOT NULL',
-            'title' => Schema::TYPE_STRING . ' NOT NULL',
-            'layout' => Schema::TYPE_STRING . ' NOT NULL',
-            'createdAt' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updatedAt' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'id' => $this->primaryKey(),
+            'route' => $this->string()->notNull(),
+            'title' => $this->string()->notNull(),
+            'layout' => $this->string()->notNull(),
+            'createdAt' => $this->integer()->notNull(),
+            'updatedAt' => $this->integer()->notNull(),
         ], $this->getTableOptions());
 
         /**
          * Create block table
          */
         $this->createTable($this->tables['block'], [
-            'id' => Schema::TYPE_STRING . ' NOT NULL',
-            'class_name' => Schema::TYPE_STRING . ' NOT NULL',
-            'config' => Schema::TYPE_TEXT,
-            'createdAt' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updatedAt' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'id' => $this->string()->notNull(),
+            'class_name' => $this->string()->notNull(),
+            'config' => $this->text(),
+            'createdAt' => $this->integer()->notNull(),
+            'updatedAt' => $this->integer()->notNull(),
         ], $this->getTableOptions());
 
         $this->addPrimaryKey('block_PK', $this->tables['block'], 'id');
@@ -54,12 +54,12 @@ class m000000_000003_create_cms_tables extends Migration
          * Create pageHasBlock table
          */
         $this->createTable($this->tables['page_has_block'], [
-            'id' => Schema::TYPE_PK,
-            'page_id' => Schema::TYPE_INTEGER,
-            'block_id' => Schema::TYPE_STRING . ' NOT NULL',
-            'order' => Schema::TYPE_FLOAT,
-            'createdAt' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'updatedAt' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'id' => $this->primaryKey(),
+            'page_id' => $this->integer()->notNull(),
+            'block_id' => $this->string()->notNull(),
+            'order' => $this->float(),
+            'createdAt' => $this->integer()->notNull(),
+            'updatedAt' => $this->integer()->notNull(),
         ], $this->getTableOptions());
 
     }

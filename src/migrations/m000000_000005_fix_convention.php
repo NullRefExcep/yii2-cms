@@ -14,16 +14,16 @@ class m000000_000005_fix_convention extends Migration
     ];
 
     protected $columns = [
-        'createdAt'=>'created_at',
-        'updatedAt'=>'updated_at',
+        'createdAt' => 'created_at',
+        'updatedAt' => 'updated_at',
     ];
 
     public function safeUp()
     {
         foreach ($this->tables as $table) {
             foreach ($this->columns as $oldColumn => $newColumn) {
-                if ($this->hasColumn($table,$oldColumn)){
-                    $this->renameColumn($table,$oldColumn,$newColumn);
+                if ($this->hasColumn($table, $oldColumn)) {
+                    $this->renameColumn($table, $oldColumn, $newColumn);
                 }
             }
         }
@@ -33,8 +33,8 @@ class m000000_000005_fix_convention extends Migration
     {
         foreach ($this->tables as $table) {
             foreach ($this->columns as $oldColumn => $newColumn) {
-                if ($this->hasColumn($table,$newColumn)){
-                    $this->renameColumn($table,$newColumn,$oldColumn);
+                if ($this->hasColumn($table, $newColumn)) {
+                    $this->renameColumn($table, $newColumn, $oldColumn);
                 }
             }
         }
