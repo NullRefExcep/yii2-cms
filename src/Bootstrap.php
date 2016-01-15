@@ -7,11 +7,30 @@ use yii\base\Event;
 use yii\gii\Module as Gii;
 use yii\i18n\PhpMessageSource;
 use yii\web\Application as WebApplication;
+use Yii;
 
 class Bootstrap implements BootstrapInterface
 {
+    protected $classMap = [
+        'Block' => 'nullref\cms\models\Block',
+        'BlockQuery' => 'nullref\cms\models\BlockQuery',
+        'Page' => 'nullref\cms\models\Page',
+        'PageHasBlock' => 'nullref\cms\models\PageHasBlock',
+        'PageQuery' => 'nullref\cms\models\PageQuery',
+    ];
+
     public function bootstrap($app)
     {
+        /** @var Module $module */
+        if ($app->hasModule('cms') && ($module = $app->getModule('cms')) instanceof Module) {
+            $classMap = array_merge($this->classMap, $module->classMap);
+            foreach (['Block', 'BlockQuery', 'Page', 'PageHasBlock', 'PageQuery'] as $item) {
+                $className = '\nullref\cms\models\\' . $item;
+                $cmsClass = $className::className();
+                $definition = $classMap[$item];
+                Yii::$container->set($cmsClass, $definition);
+            }
+        }
         if ($app instanceof WebApplication) {
             $prefix = $app->getModule('cms')->urlPrefix;
             $app->urlManager->addRules([

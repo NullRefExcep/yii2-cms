@@ -18,6 +18,12 @@ use yii\helpers\ArrayHelper;
  */
 class Module extends BaseModule implements IAdminModule
 {
+    /**
+     * Allow to override module classes
+     * @var array
+     */
+    public $classMap = [];
+
     public $urlPrefix = '/pages';
 
     public function __construct($id, $parent = null, $config = [])
