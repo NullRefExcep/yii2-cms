@@ -28,6 +28,9 @@ class PageView extends Action
         if ($page->layout) {
             $this->controller->layout = $page->layout;
         }
+        if ($page->type == Page::TYPE_CONTENT) {
+            $this->view = 'content-view';
+        }
         return $this->controller->render($this->view, [
             'page' => $page,
         ]);

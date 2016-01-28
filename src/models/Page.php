@@ -3,9 +3,11 @@
 namespace nullref\cms\models;
 
 use nullref\cms\components\RelatedBehavior;
+use nullref\useful\SerializeBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\web\View;
 
 /**
  * This is the model class for table "{{%cms_page}}".
@@ -16,6 +18,9 @@ use yii\db\ActiveRecord;
  * @property string $layout
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $content
+ * @property string $type
+ * @property array $meta
  *
  *
  * @property string $layoutTitle
@@ -26,6 +31,9 @@ use yii\db\ActiveRecord;
  */
 class Page extends ActiveRecord
 {
+    const TYPE_BLOCKS = 0;
+    const TYPE_CONTENT = 1;
+
     /**
      * @inheritdoc
      */
@@ -51,6 +59,10 @@ class Page extends ActiveRecord
                     'items' => PageHasBlock::className(),
                 ]
             ],
+            'serialize' => [
+                'class' => SerializeBehavior::className(),
+                'fields' => ['meta'],
+            ]
         ];
     }
 
@@ -61,8 +73,10 @@ class Page extends ActiveRecord
     {
         return [
             [['route', 'title', 'layout'], 'required'],
-            [['created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at', 'type'], 'integer'],
             [['route', 'title', 'layout'], 'string', 'max' => 255],
+            [['content'], 'string'],
+            [['meta'], 'safe'],
             [['layout'], 'validateAlias'],
         ];
     }
@@ -73,7 +87,6 @@ class Page extends ActiveRecord
     public function validateAlias($attribute)
     {
         try {
-
             $path = Yii::getAlias($this->{$attribute});
             if (!(file_exists($path) || file_exists($path . '.php'))) {
                 $this->addError($attribute, Yii::t('cms', 'Layout file must exist'));
@@ -95,6 +108,9 @@ class Page extends ActiveRecord
             'layout' => Yii::t('cms', 'Layout'),
             'created_at' => Yii::t('cms', 'Created At'),
             'updated_at' => Yii::t('cms', 'Updated At'),
+            'content' => Yii::t('cms', 'Content'),
+            'type' => Yii::t('cms', 'Type'),
+            'meta' => Yii::t('cms', 'Meta Tags'),
         ];
     }
 
@@ -123,5 +139,38 @@ class Page extends ActiveRecord
     public function getItems()
     {
         return $this->hasMany(PageHasBlock::className(), ['page_id' => 'id'])->orderBy(['order' => SORT_ASC]);
+    }
+
+    /**
+     * @param View $view
+     */
+    public function registerMetaTags($view)
+    {
+        if (!empty($this->meta)) {
+            foreach ($this->meta as $metaTag) {
+                $view->registerMetaTag($metaTag);
+            }
+        }
+    }
+
+    public static function getTypesMap()
+    {
+        return [
+            self::TYPE_BLOCKS => Yii::t('cms', 'Block type'),
+            self::TYPE_CONTENT => Yii::t('cms', 'Content type')
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getMetaTypesList()
+    {
+        return [
+            'title' => Yii::t('cms', 'Meta title'),
+            'description' => Yii::t('cms', 'Meta description'),
+            'keywords' => Yii::t('cms', 'Meta keywords'),
+            'robots' => Yii::t('cms', 'Meta robots'),
+        ];
     }
 }
