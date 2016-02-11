@@ -3,6 +3,7 @@
 namespace nullref\cms\generators\migration;
 
 use nullref\cms\models\Block;
+use nullref\core\traits\VariableExportTrait;
 use Yii;
 use yii\gii\CodeFile;
 use yii\gii\Generator as BaseGenerator;
@@ -10,6 +11,9 @@ use yii\gii\Generator as BaseGenerator;
 
 class Generator extends BaseGenerator
 {
+    use VariableExportTrait;
+
+    public $path;
 
     public $block;
 
@@ -25,23 +29,26 @@ class Generator extends BaseGenerator
         $selectedBlock = Block::find()->where(['id' => $this->block])->one();
         $time = new \DateTime();
         $time = $time->getTimestamp();
-        $commands = "['id' => '$selectedBlock->id'," .
-            "'class_name' => '$selectedBlock->class_name'," .
-            "'name' => '$selectedBlock->name'," .
-            "'visibility' => '$selectedBlock->visibility'," .
-            "'config' => '{$selectedBlock->config}'," .
-            "'created_at' => $time," .
-            "'updated_at' => $time,]";
+
+        $resultConfig = 'serialize(' . $this->varExport(unserialize($selectedBlock->config)) . ')';
+
+        $commands = "[\n\t\t\t'id' => '$selectedBlock->id'," .
+            "\n\t\t\t'class_name' => '$selectedBlock->class_name'," .
+            "\n\t\t\t'name' => '$selectedBlock->name'," .
+            "\n\t\t\t'visibility' => '$selectedBlock->visibility'," .
+            "\n\t\t\t'config' => $resultConfig," .
+            "\n\t\t\t'created_at' => $time," .
+            "\n\t\t\t'updated_at' => $time,\n\t\t\t]";
 
         $files = [];
-        $name = 'm' . gmdate('ymd_Hi') . '00_block_' . $selectedBlock->id;
+        $name = 'm' . gmdate('ymd_Hi') . '00_block_' . str_replace('-', '_', $selectedBlock->id);
         $code = $this->render('migration.php', [
             'name' => $name,
             'blockId' => $selectedBlock->id,
             'commands' => $commands,
         ]);
         $files[] = new CodeFile(
-            Yii::getAlias('@app/migrations') . '/' . $name . '.php',
+            Yii::getAlias($this->path) . '/' . $name . '.php',
             $code
         );
         return $files;
@@ -53,7 +60,7 @@ class Generator extends BaseGenerator
     public function rules()
     {
         return [
-            [['block'], 'required'],
+            [['block', 'path'], 'required'],
         ];
     }
 
@@ -71,6 +78,17 @@ class Generator extends BaseGenerator
     public function getDescription()
     {
         return 'This generator generates a migration for block';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function hints()
+    {
+        return array_merge(parent::hints(), [
+            'path' => 'Specify the directory for storing the migration for your  block. You may use path alias here, e.g.,
+                <code>@app/migrations</code>'
+        ]);
     }
 
 }
