@@ -6,8 +6,10 @@ String.prototype.replaceAll = function (find, replace) {
 var pageItemsList = jQuery('#pageItemsList');
 var pageItemTmpl = jQuery('#pageItemTmpl');
 var blocksList = jQuery('#blocksList');
+var typeDropDown = jQuery('#page-type');
 var idCounter = 1;
 
+updateEditor();
 
 blocksList.on('click','[data-action="add-block"]', function(e) {
     addBlock(jQuery(this).data());
@@ -31,6 +33,18 @@ pageItemsList.sortable({
 });
 
 pageItemsList.disableSelection();
+
+typeDropDown.change(function (e) {
+    updateEditor();
+});
+
+function updateEditor() {
+    var typeDropDown = jQuery('#page-type');
+    var currentType = typeDropDown.val();
+    var editors = jQuery('#editor-wrapper .row');
+    editors.hide();
+    editors.filter("[data-type=" + currentType + "]").fadeIn();
+}
 
 function addBlock(data) {
     var item = pageItemTmpl.clone();
