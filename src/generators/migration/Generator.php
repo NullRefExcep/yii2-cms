@@ -32,13 +32,14 @@ class Generator extends BaseGenerator
 
         $resultConfig = 'serialize(' . $this->varExport(unserialize($selectedBlock->config)) . ')';
 
-        $commands = "[\n\t\t\t'id' => '$selectedBlock->id'," .
-            "\n\t\t\t'class_name' => '$selectedBlock->class_name'," .
-            "\n\t\t\t'name' => '$selectedBlock->name'," .
-            "\n\t\t\t'visibility' => '$selectedBlock->visibility'," .
-            "\n\t\t\t'config' => $resultConfig," .
-            "\n\t\t\t'created_at' => $time," .
-            "\n\t\t\t'updated_at' => $time,\n\t\t\t]";
+        $offset = "\n\t\t\t";
+        $commands = "[{$offset}'id' => '$selectedBlock->id'," .
+            "{$offset}'class_name' => '$selectedBlock->class_name'," .
+            "{$offset}'name' => '$selectedBlock->name'," .
+            "{$offset}'visibility' => '$selectedBlock->visibility'," .
+            "{$offset}'config' => $resultConfig," .
+            "{$offset}'created_at' => $time," .
+            "{$offset}'updated_at' => $time,{$offset}]";
 
         $files = [];
         $name = 'm' . gmdate('ymd_Hi') . '00_block_' . str_replace('-', '_', $selectedBlock->id);

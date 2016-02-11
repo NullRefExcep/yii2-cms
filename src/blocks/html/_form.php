@@ -1,6 +1,7 @@
 <?php
 
 use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 use yii\web\View;
 
 /**
@@ -9,10 +10,11 @@ use yii\web\View;
  * @var $this \yii\web\View
  */
 list(, $footnotesUrl) = Yii::$app->assetManager->publish('@nullref/cms/assets/ckeditor-plugins/codemirror');
-$this->registerJs("CKEDITOR.plugins.addExternal( 'codemirror', '" . $footnotesUrl . "/','plugin.js');", View::POS_END);
+$this->registerJs("CKEDITOR.plugins.addExternal( 'codemirror', '" . $footnotesUrl . "/','plugin.js');
+Object.keys(CKEDITOR.dtd.\$removeEmpty).forEach(function(key){CKEDITOR.dtd.\$removeEmpty[key] = 0;});
+", View::POS_END);
 
-
-echo $form->field($block, 'content')->widget(CKEditor::className(), [
+$editorConfig = [
     'id' => 'editor',
     'editorOptions' => [
         'preset' => 'full',
@@ -54,6 +56,10 @@ echo $form->field($block, 'content')->widget(CKEditor::className(), [
             'useBeautify' => true,
         ],
     ],
-]);
+];
+
+$editorConfig = ElFinder::ckeditorOptions('elfinder-backend', $editorConfig);
+
+echo $form->field($block, 'content')->widget(CKEditor::className(), $editorConfig);
 echo $form->field($block, 'tag')->textInput();
 echo $form->field($block, 'tagClass')->textInput();
