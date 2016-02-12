@@ -58,7 +58,7 @@ $editorConfig = [
     ],
 ];
 
-$editorConfig = ElFinder::ckeditorOptions('elfinder-backend', $editorConfig);
+$editorConfig['editorOptions'] = ElFinder::ckeditorOptions('elfinder-backend', $editorConfig['editorOptions']);
 
 echo $form->field($block, 'content')->widget(CKEditor::className(), $editorConfig);
 echo $form->field($block, 'tag')->textInput();

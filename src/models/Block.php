@@ -84,6 +84,7 @@ class Block extends ActiveRecord
         return [
             'id' => Yii::t('cms', 'ID'),
             'class_name' => Yii::t('cms', 'Block Type'),
+            'typeName' => Yii::t('cms', 'Block Type'),
             'name' => Yii::t('cms', 'Block Name'),
             'config' => Yii::t('cms', 'Config'),
             'pages' => Yii::t('cms', 'Pages'),
