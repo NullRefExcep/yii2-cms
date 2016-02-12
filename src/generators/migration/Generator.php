@@ -13,7 +13,7 @@ class Generator extends BaseGenerator
 {
     use VariableExportTrait;
 
-    public $path;
+    public $path = '@app/migrations';
 
     public $block;
 
