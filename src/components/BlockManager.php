@@ -5,7 +5,6 @@ namespace nullref\cms\components;
 use nullref\cms\models\Block as BlockModel;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use Yii;
 
@@ -60,7 +59,7 @@ class BlockManager extends Component
     /**
      * @param $id
      * @param $config
-     * @return Widget
+     * @return \nullref\cms\components\Widget
      * @throws \yii\base\InvalidConfigException
      */
     public function getWidget($id, $config = [])
