@@ -15,7 +15,8 @@
         "nullref/yii2-useful": "*",
         "nullref/yii2-core": "*",
         "bower-asset/owl.carousel": "2.*",
-        "trntv/yii2-aceeditor": "*"
+        "trntv/yii2-aceeditor": "*",
+        "unclead/yii2-multiple-input": ">=1.2.10"
     },
     "autoload": {
         "psr-4": {
