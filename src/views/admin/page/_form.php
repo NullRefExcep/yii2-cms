@@ -1,12 +1,11 @@
 <?php
 
+use mihaildev\ckeditor\CKEditor;
 use nullref\cms\assets\PageFormAssets;
+use nullref\cms\models\Page;
+use unclead\widgets\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use unclead\widgets\MultipleInput;
-use nullref\cms\models\Page;
-use mihaildev\ckeditor\CKEditor;
-use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model nullref\cms\models\Page */
@@ -15,12 +14,6 @@ use yii\web\View;
 PageFormAssets::register($this);
 
 $pageTypesMap = Page::getTypesMap();
-$currentPageType = $model->type;
-
-$this->registerJs(<<<JS
-
-JS
-    , View::POS_BEGIN);
 
 /** @var \nullref\cms\components\PageLayoutManager $layoutManager */
 $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
@@ -83,13 +76,13 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
                 'columns' => [
                     [
                         'name' => 'name',
-                        'title' => 'Name',
+                        'title' => Yii::t('cms', 'Name'),
                         'type' => 'dropDownList',
                         'items' => Page::getMetaTypesList(),
                     ],
                     [
                         'name' => 'content',
-                        'title' => 'Content',
+                        'title' => Yii::t('cms', 'Content'),
                     ]
                 ]
             ])->label(false) ?>
