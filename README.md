@@ -101,9 +101,8 @@ Overring
 --------
 
 - Models and ActiveQueries:
-```
+```php
 /** module config **/
-
 'cms' => [
     'classMap' => [
         'Block' => 'app\models\cms\Block',
@@ -115,7 +114,47 @@ Overring
 ],
 ```
 
-- [Translations](https://github.com/NullRefExcep/yii2-core#translation-overriding)
+- [Translations](https://github.com/NullRefExcep/yii2-core#translation-overriding):
+```
+[
+ /** App config **/
+ 'components' => [
+  'i18n' => [
+      'translations' => [
+          '*' => ['class' => 'yii\i18n\PhpMessageSource'],
+          'cms' => ['class' => 'nullref\core\components\i18n\PhpMessageSource'],
+      ],
+  ],
+ ]
+]
+```
+- [Views](http://www.yiiframework.com/doc-2.0/yii-base-theme.html#$pathMap-detail):
+
+```php
+/** App config **/
+'components' => [
+    'view' => [
+        'theme' => [
+            'pathMap' => [
+                '@nullref/cms/views' => '@app/views/cms'
+            ],
+        ],
+    ],
+],
+```
+- [Controllers](http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html)
+
+```php
+/** module config **/
+'cms' => [
+    'class' => 'nullref\cms\Module',
+    'controllerNamespace' => 'app\modules\cms\controllers',
+    'controllerMap' => [
+        // declares "page" controller using a class name
+        'page' => 'app\controllers\PageController',
+    ],
+],
+```
 
 Admin Panel
 ----------------------------
