@@ -115,7 +115,7 @@ Overring
 ```
 
 - [Translations](https://github.com/NullRefExcep/yii2-core#translation-overriding):
-```
+```php
 [
  /** App config **/
  'components' => [
@@ -142,7 +142,7 @@ Overring
     ],
 ],
 ```
-- [Controllers](http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html)
+- [Controllers](http://www.yiiframework.com/doc-2.0/guide-structure-controllers.html):
 
 ```php
 /** module config **/
