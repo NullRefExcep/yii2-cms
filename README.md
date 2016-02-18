@@ -97,6 +97,26 @@ use nullref\cms\components\Block;
 </div>
 ```
 
+Overring
+--------
+
+- Models and ActiveQueries:
+```
+/** module config **/
+
+'cms' => [
+    'classMap' => [
+        'Block' => 'app\models\cms\Block',
+        'BlockQuery' => 'app\models\cms\BlockQuery',
+        'Page' => 'app\models\cms\Page',
+        'PageHasBlock' => 'app\models\cms\PageHasBlock',
+        'PageQuery' => 'app\models\cms\PageQuery',
+    ],
+],
+```
+
+- [Translations](https://github.com/NullRefExcep/yii2-core#translation-overriding)
+
 Admin Panel
 ----------------------------
 
