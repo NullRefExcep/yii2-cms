@@ -97,7 +97,7 @@ use nullref\cms\components\Block;
 </div>
 ```
 
-Overring
+Overriding
 --------
 
 - Models and ActiveQueries:
