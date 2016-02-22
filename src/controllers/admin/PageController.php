@@ -55,6 +55,22 @@ class PageController extends Controller implements IAdminController
     }
 
     /**
+     * Finds the Page model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Page the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Page::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
      * Creates a new Page model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -83,7 +99,8 @@ class PageController extends Controller implements IAdminController
     {
         $model = $this->findModel($id);
 
-        if ($model->loadWithRelations(Yii::$app->request->post()) && $model->save()) {
+        $default = Yii::$app->request->isPost ? ['PageHasBlock' => []] : [];
+        if ($model->loadWithRelations(array_merge(Yii::$app->request->post(), $default)) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -114,21 +131,5 @@ class PageController extends Controller implements IAdminController
         return $this->render('wysiwyg', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Finds the Page model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Page the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Page::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }
