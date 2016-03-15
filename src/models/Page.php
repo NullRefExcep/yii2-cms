@@ -8,6 +8,7 @@ use nullref\useful\SerializeBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Command;
 use yii\web\View;
 
 /**
@@ -43,15 +44,6 @@ class Page extends ActiveRecord
     public static function tableName()
     {
         return '{{%cms_page}}';
-    }
-
-    /**
-     * @inheritdoc
-     * @return PageQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new PageQuery(get_called_class());
     }
 
     public static function getTypesMap()
@@ -113,6 +105,33 @@ class Page extends ActiveRecord
             [['meta'], 'safe'],
             [['layout'], 'validateAlias'],
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (!$insert) {
+            $cmd = self::find()->byRoute($this->route)->createCommand();
+
+            $cacheKey = [
+                Command::className(),
+                'fetch',
+                null,
+                $this->getDb()->dsn,
+                $this->getDb()->username,
+                $cmd->rawSql,
+            ];
+            Yii::$app->cache->delete($cacheKey);
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * @inheritdoc
+     * @return PageQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new PageQuery(get_called_class());
     }
 
     /**

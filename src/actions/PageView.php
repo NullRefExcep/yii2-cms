@@ -25,7 +25,7 @@ class PageView extends Action
             throw new NotFoundHttpException(Yii::t('cms', 'Page not found.'));
         }
         $page = Page::getDb()->cache(function () use ($route) {
-            return Page::find()->byRoute($route)->joinWith('items')->one();
+            return Page::find()->byRoute($route)->one();
         });
 
         if (!isset($page)) {
