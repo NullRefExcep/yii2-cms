@@ -2,7 +2,8 @@
 
 namespace nullref\cms\models;
 
-use nullref\cms\components\RelatedBehavior;
+use nullref\useful\behaviors\RelatedBehavior;
+use nullref\useful\traits\GetDefinition;
 use nullref\useful\SerializeBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -34,12 +35,44 @@ class Page extends ActiveRecord
     const TYPE_BLOCKS = 0;
     const TYPE_CONTENT = 1;
 
+    use GetDefinition;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%cms_page}}';
+    }
+
+    /**
+     * @inheritdoc
+     * @return PageQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new PageQuery(get_called_class());
+    }
+
+    public static function getTypesMap()
+    {
+        return [
+            self::TYPE_BLOCKS => Yii::t('cms', 'Block type'),
+            self::TYPE_CONTENT => Yii::t('cms', 'Content type')
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getMetaTypesList()
+    {
+        return [
+            'title' => Yii::t('cms', 'Meta title'),
+            'description' => Yii::t('cms', 'Meta description'),
+            'keywords' => Yii::t('cms', 'Meta keywords'),
+            'robots' => Yii::t('cms', 'Meta robots'),
+        ];
     }
 
     /**
@@ -54,6 +87,7 @@ class Page extends ActiveRecord
                 'updatedAtAttribute' => 'updated_at',
             ],
             'related' => [
+                'filedSuffix' => '_list',
                 'class' => RelatedBehavior::className(),
                 'fields' => [
                     'items' => PageHasBlock::className(),
@@ -125,15 +159,6 @@ class Page extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     * @return PageQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new PageQuery(get_called_class());
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getItems()
@@ -151,26 +176,5 @@ class Page extends ActiveRecord
                 $view->registerMetaTag($metaTag);
             }
         }
-    }
-
-    public static function getTypesMap()
-    {
-        return [
-            self::TYPE_BLOCKS => Yii::t('cms', 'Block type'),
-            self::TYPE_CONTENT => Yii::t('cms', 'Content type')
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getMetaTypesList()
-    {
-        return [
-            'title' => Yii::t('cms', 'Meta title'),
-            'description' => Yii::t('cms', 'Meta description'),
-            'keywords' => Yii::t('cms', 'Meta keywords'),
-            'robots' => Yii::t('cms', 'Meta robots'),
-        ];
     }
 }

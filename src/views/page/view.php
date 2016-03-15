@@ -1,5 +1,6 @@
 <?php
 
+use nullref\cms\components\Block as CMSBlock;
 use nullref\cms\blocks\EmptyBlock;
 
 /** @var $this \yii\web\View */
@@ -9,7 +10,7 @@ $page->registerMetaTags($this);
 ?>
 <?php foreach ($page->items as $item): ?>
     <?php if ($item->block): ?>
-        <?= $item->block->getWidget() ?>
+        <?= CMSBlock::getManager()->getWidget($item->block_id) ?>
     <?php else: ?>
         <?= EmptyBlock::widget(['id' => $item->block_id]) ?>
     <?php endif ?>

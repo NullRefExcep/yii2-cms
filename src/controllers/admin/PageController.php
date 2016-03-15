@@ -100,7 +100,7 @@ class PageController extends Controller implements IAdminController
         $model = $this->findModel($id);
 
         $default = Yii::$app->request->isPost ? ['PageHasBlock' => []] : [];
-        if ($model->loadWithRelations(array_merge(Yii::$app->request->post(), $default)) && $model->save()) {
+        if ($model->loadWithRelations(array_merge($default, Yii::$app->request->post())) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

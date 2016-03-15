@@ -35,6 +35,16 @@ class BlockManager extends Component
         }
     }
 
+    /**
+     * @param $id
+     * @return \nullref\cms\components\Block
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getBlock($id)
+    {
+        return Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
+    }
+
     public function getList()
     {
         return array_merge($this->blocks, $this->_blocks, [
@@ -48,16 +58,6 @@ class BlockManager extends Component
 
     /**
      * @param $id
-     * @return \nullref\cms\components\Block
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getBlock($id)
-    {
-        return Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
-    }
-
-    /**
-     * @param $id
      * @param $config
      * @return \nullref\cms\components\Widget
      * @throws \yii\base\InvalidConfigException
@@ -65,7 +65,9 @@ class BlockManager extends Component
     public function getWidget($id, $config = [])
     {
         /** @var BlockModel $block */
-        $block = BlockModel::find()->where(['id' => $id])->one();
+        $block = BlockModel::getDb()->cache(function () use ($id) {
+            return BlockModel::find()->where(['id' => $id])->one();
+        });
         if ($block) {
             $config = ArrayHelper::merge($config, $block->getData());
             $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;

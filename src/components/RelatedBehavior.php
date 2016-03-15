@@ -22,6 +22,9 @@ class RelatedBehavior extends Behavior
     /** @var string */
     public $newKeyPrefix = 'new_';
 
+    /** @var null| string | callable  */
+    public $indexBy = null;
+
     /** @var ActiveRecord[][] */
     protected $_newValues = [];
     /** @var ActiveRecord[][] */
@@ -175,7 +178,7 @@ class RelatedBehavior extends Behavior
             if ($owner->isNewRecord) {
                 $this->_newValues[$name] = $models;
             } else {
-                $storedValues = $owner->getRelation($originalName)->indexBy('id')->all();
+                $storedValues = $owner->getRelation($originalName)->indexBy($this->indexBy)->all();
                 foreach ($models as $key => $model) {
                     /** @var $model ActiveRecord */
                     if (substr($key, 0, strlen($this->newKeyPrefix)) == $this->newKeyPrefix) {

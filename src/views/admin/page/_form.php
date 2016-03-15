@@ -78,7 +78,7 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
                         'name' => 'name',
                         'title' => Yii::t('cms', 'Name'),
                         'type' => 'dropDownList',
-                        'items' => Page::getMetaTypesList(),
+                        'items' => call_user_func([Page::getDefinitionClass(), 'getMetaTypesList']),
                     ],
                     [
                         'name' => 'content',

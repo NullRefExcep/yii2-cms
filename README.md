@@ -29,6 +29,8 @@ Concept
 This module allows you to build dynamic pages which consist of blocks (widget with config).
 You can create custom widgets and register it in BlockManager.
 
+Also you can create pages with html content by WYSIWYG [CKEditor](https://github.com/MihailDev/yii2-ckeditor).
+
 
 BlockManager
 ------------
@@ -96,6 +98,31 @@ use nullref\cms\components\Block;
     <?= Block::getBlock('hello2') //block has override method __toString() ?>
 </div>
 ```
+
+
+Pages
+-----
+
+This module allows to create pages with custom content and set custom url for it.
+By default all pages are available by route `/pages/<route>`, but you can override it by config:
+```php
+/** module config **/
+'cms' => [
+    'class' => 'nullref\cms\Module',
+    'urlPrefix' => '', //make empty prefix
+],
+```
+
+By default you can set meta tags for each page.
+Default tags are:
+
+- title
+- description
+- keywords
+- robots
+
+You can override method `getMetaTypesList` in Page model class ([see below](#overriding)) to extend it.
+
 
 Overriding
 --------

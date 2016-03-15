@@ -2,6 +2,7 @@
 
 namespace nullref\cms;
 
+use nullref\cms\components\PageUrlRule;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\gii\Module as Gii;
@@ -24,7 +25,7 @@ class Bootstrap implements BootstrapInterface
         /** @var Module $module */
         if ($app->hasModule('cms') && ($module = $app->getModule('cms')) instanceof Module) {
             $classMap = array_merge($this->classMap, $module->classMap);
-            foreach (['Block', 'BlockQuery', 'Page', 'PageHasBlock', 'PageQuery'] as $item) {
+            foreach (array_keys($this->classMap) as $item) {
                 $className = '\nullref\cms\models\\' . $item;
                 $cmsClass = $className::className();
                 $definition = $classMap[$item];
@@ -33,9 +34,10 @@ class Bootstrap implements BootstrapInterface
         }
         if ($app instanceof WebApplication) {
             $prefix = $app->getModule('cms')->urlPrefix;
-            $app->urlManager->addRules([
-                $prefix . '/<route:[_a-zA-Z0-9-/]+>' => '/cms/page/view'
-            ]);
+            $app->urlManager->addRules([Yii::createObject([
+                'class' => PageUrlRule::className(),
+                'pattern' => $prefix . '/<route:[_a-zA-Z0-9-/]+>',
+            ])]);
             if (!isset($app->controllerMap['elfinder-backend'])) {
                 $app->controllerMap['elfinder-backend'] = [
                     'class' => 'mihaildev\elfinder\Controller',
