@@ -68,6 +68,9 @@ class Bootstrap implements BootstrapInterface
                 $gii->generators['block-generator'] = [
                     'class' => 'nullref\cms\generators\block\Generator',
                 ];
+                $gii->generators['pages-migration-generator'] = [
+                    'class' => 'nullref\cms\generators\pages_migration\Generator',
+                ];
             });
         }
     }
