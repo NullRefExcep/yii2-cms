@@ -7,6 +7,7 @@ use nullref\cms\components\Widget;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Command;
 
 /**
  * This is the model class for table "{{%cms_block}}".
@@ -95,15 +96,6 @@ class Block extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     * @return BlockQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new BlockQuery(get_called_class());
-    }
-
-    /**
      * @return mixed
      */
     public function getTypeName()
@@ -153,6 +145,38 @@ class Block extends ActiveRecord
 
     public function isPublic()
     {
-        return $this->visibility == self::VISIBILITY_PUBLIC;
+        return $this->visibility === self::VISIBILITY_PUBLIC;
+    }
+
+    /**
+     * Invalidate cache when update model
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (!$insert) {
+            $cmd = self::find()->where(['id' => $this->id])->createCommand();
+
+            $cacheKey = [
+                Command::className(),
+                'fetch',
+                null,
+                self::getDb()->dsn,
+                self::getDb()->username,
+                $cmd->rawSql,
+            ];
+            Yii::$app->cache->delete($cacheKey);
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * @inheritdoc
+     * @return BlockQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new BlockQuery(get_called_class());
     }
 }

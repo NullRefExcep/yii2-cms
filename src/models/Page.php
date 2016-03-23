@@ -107,6 +107,11 @@ class Page extends ActiveRecord
         ];
     }
 
+    /**
+     * Invalidate cache when update model
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         if (!$insert) {
@@ -116,8 +121,8 @@ class Page extends ActiveRecord
                 Command::className(),
                 'fetch',
                 null,
-                $this->getDb()->dsn,
-                $this->getDb()->username,
+                self::getDb()->dsn,
+                self::getDb()->username,
                 $cmd->rawSql,
             ];
             Yii::$app->cache->delete($cacheKey);
