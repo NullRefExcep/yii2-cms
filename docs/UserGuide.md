@@ -15,15 +15,15 @@ At second step it can be different quantity of parameters. Here examples for som
 
 Text block
 
-![Text Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/text_block.PNG) 
+![Text Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/text_block.PNG =300x225)
 
 Html block
 
-![Html Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/html_block.PNG) 
+![Html Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/html_block.PNG =300x225) 
 
 Php block
 
-![PHP Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/php_block.PNG) 
+![PHP Block](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/images/php_block.PNG =300x225) 
 
 Creating page
 --------------
