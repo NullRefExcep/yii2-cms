@@ -187,3 +187,9 @@ Admin Panel
 ----------------------------
 
 You can use this module with [Yii2 Admin](https://github.com/NullRefExcep/yii2-admin) module.
+
+
+Useful info
+----------------------------
+
+[User guide](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/UserGuide.md)
