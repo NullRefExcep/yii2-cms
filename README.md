@@ -192,4 +192,4 @@ You can use this module with [Yii2 Admin](https://github.com/NullRefExcep/yii2-a
 Useful info
 ----------------------------
 
-[User guide](https://raw.githubusercontent.com/NullRefExcep/yii2-cms/master/docs/UserGuide.md)
+[User guide](https://github.com/NullRefExcep/yii2-cms/blob/master/docs/UserGuide.md)
