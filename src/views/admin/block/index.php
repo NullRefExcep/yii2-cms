@@ -21,6 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
+    <?php if (Yii::$app->session->hasFlash('delete-is-not-allowed')): ?>
+        <div class="alert alert-danger">
+            <?= Yii::$app->session->getFlash('delete-is-not-allowed') ?>
+        </div>
+    <?php endif ?>
 
     <p>
         <?= Html::a(Yii::t('cms', 'Create Block'), ['create'], ['class' => 'btn btn-success']) ?>

@@ -57,6 +57,7 @@ return [
     'Route' => 'Маршрут',
     'Save' => 'Зберегти',
     'Title' => 'Заголовок',
+    'This block is used on page!' => 'Цей блок використовується на сторінці!',
     'Type' => 'Тип',
     'Update' => 'Редагувати',
     'Update {modelClass}: ' => 'Редагувати {modelClass}:',

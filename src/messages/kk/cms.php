@@ -57,6 +57,7 @@ return [
     'Tag' => '',
     'Tag class' => '',
     'Title' => '',
+    'This block is used on page!' => '',
     'Type' => '',
     'Update' => '',
     'Update {modelClass}: ' => '',

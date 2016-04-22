@@ -172,6 +172,19 @@ class Block extends ActiveRecord
     }
 
     /**
+     * Prevent deleting block which used on page
+     * @return bool
+     */
+    public function beforeDelete()
+    {
+        if($this->pages) {
+            Yii::$app->session->setFlash('delete-is-not-allowed', Yii::t('cms','This block is used on page!'));
+            return false;
+        }
+        return parent::beforeDelete();
+    }
+
+    /**
      * @inheritdoc
      * @return BlockQuery the active query used by this AR class.
      */
