@@ -8,6 +8,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Command;
+use yii\web\Application;
 
 /**
  * This is the model class for table "{{%cms_block}}".
@@ -166,7 +167,11 @@ class Block extends ActiveRecord
                 self::getDb()->username,
                 $cmd->rawSql,
             ];
-            Yii::$app->cache->delete($cacheKey);
+            if (Yii::$app instanceof Application) {
+                if (Yii::$app->cache->exists($cacheKey)) {
+                    Yii::$app->cache->delete($cacheKey);
+                }
+            }
         }
         parent::afterSave($insert, $changedAttributes);
     }

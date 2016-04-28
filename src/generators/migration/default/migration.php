@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @var $blockId string
- * @var $commands string
+ * @var $blocksToMigrate array
  */
 
 echo "<?php\n";
@@ -14,27 +13,38 @@ use nullref\cms\models\Block;
 
 class <?= $name ?> extends Migration
 {
-    public function up()
-    {
-        /** @var Block $existBlock */
-        $existBlock = Block::findOne(['id' => '<?= $blockId ?>']);
-        if( $existBlock ) {
-            $oldId = 'old_' . $existBlock->id;
-            $existBlock->id = $oldId;
-            $existBlock->save();
-        }
-        $this->insert(Block::tableName(), <?= $commands ?>);
+public function safeUp()
+{
+/** @var Block $existBlock */
+<?php foreach ($blocksToMigrate as $block): ?>
+
+    $existBlock = Block::findOne(['id' => '<?= $block['blockId'] ?>']);
+    if( $existBlock ) {
+    $oldId = 'old_' . $existBlock->id;
+    $existBlock->id = $oldId;
+    $existBlock->save();
+    }
+    $this->insert(Block::tableName(), <?= $block['commands'] ?>);
+
+<?php endforeach ?>
+
+}
+
+public function safeDown()
+{
+/** @var Block $oldBlock */
+<?php foreach ($blocksToMigrate as $block): ?>
+
+    $this->delete(Block::tableName(), ['id' => '<?= $block['blockId'] ?>']);
+
+    $oldBlock = Block::findOne(['id' => 'old_<?= $block['blockId'] ?>']);
+    if( $oldBlock ) {
+    $oldBlock->id = '<?= $block['blockId'] ?>';
+    $oldBlock->save();
     }
 
-    public function down()
-    {
-        $this->delete(Block::tableName(), ['id' => '<?= $blockId ?>']);
-        /** @var Block $oldBlock */
-        $oldBlock = Block::findOne(['id' => 'old_<?= $blockId ?>']);
-        if( $oldBlock ) {
-            $oldBlock->id = '<?= $blockId ?>';
-            $oldBlock->save();
-        }
-        return true;
-    }
+<?php endforeach ?>
+
+return true;
+}
 }

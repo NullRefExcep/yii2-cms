@@ -1,0 +1,110 @@
+span.fancytree-node.fancytree-active.fancytree-selected span.fancytree-title {
+    color: #008cba;
+}
+
+.ui-fancytree.fancytree-container {
+    font-size: 15px;
+}
+
+.ui-fancytree .fa {
+    color: #222222;
+}
+
+.fancytree-container {
+    overflow-y: scroll;
+    max-height: 200px;
+}
+
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-selected span.fancytree-title,
+.fancytree-container.fancytree-treefocus span.fancytree-title:hover {
+    background: transparent;
+    border-color: transparent;
+}
+
+span.fancytree-node.fancytree-selected span.fancytree-title {
+    background-color: transparent;
+    border-color: transparent;
+}
+span.fancytree-node.fancytree-partsel span.fancytree-checkbox {
+    background-position: 0 -32px;
+}
+
+.fancytree-container.fancytree-treefocus span.fancytree-title:focus {
+    outline: none;
+}
+
+ul.fancytree-container {
+    border: 1px solid #626262;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+span.fancytree-title {
+    border-radius: 0;
+    color: #535353;
+}
+
+.fancytree-container .fancytree-checkbox,
+.fancytree-container .fancytree-expander,
+.fancytree-container .fancytree-icon {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active .fa,
+span.fancytree-active.fancytree-selected .fancytree-title,
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active.fancytree-selected span.fancytree-title,
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active,
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active span.fancytree-title {
+    color: #fff;
+}
+
+.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-active span.fancytree-title {
+    background-color: #008cba;
+    border-color: #008cba;
+}
+
+.fancytree-container span.fancytree-checkbox.fa {
+    margin-left: 5px;
+}
+
+.fancytree-container span.fancytree-node {
+    padding-left: 2px;
+}
+
+span.fancytree-icon.fa.fa-folder-o {
+    background-image: none;
+}
+
+span.fancytree-expander.fa.fa-plus-square-o {
+    background-image: none;
+}
+
+span.fancytree-expander.fa.fa-minus-square-o {
+    background-image: none;
+}
+
+span.fancytree-icon.fa.fa-file-o {
+    background-image: none;
+}
+
+span.fancytree-checkbox.fa.fa-check-square-o {
+    background-image: none;
+}
+
+span.fancytree-checkbox.fa.fa-square-o {
+    background-image: none;
+}
+
+span.fancytree-node.fancytree-folder > span.fancytree-icon {
+    background-position: 0 0;
+    background-image: none;
+}
+
+span.fancytree-node.fancytree-folder.fancytree-expanded > span.fancytree-icon {
+    background-image: none;
+}
+
+.fancytree-treefocus span.fancytree-selected span.fancytree-title, .fancytree-treefocus span.fancytree-active span.fancytree-title {
+    color: black !important;
+}
