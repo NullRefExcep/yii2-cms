@@ -69,6 +69,36 @@ To register block at runtime:
     Yii::$app->getModule($moduleId)->get('blockManager')->register('smile','app\blocks\smile');
 ```
 
+LinkManager
+-----------
+
+This component is used for unified access to links of different resources (e.g. page or categories).
+Manager can generate link to resource by it type and id.
+If you want to add own type of links you need to add link provider to this manager by definition container (DI).
+For example:
+```php
+Yii::$container->set(LinkManager::className(), [
+    'class' => LinkManager::className(),
+    'providers' => [
+        'page' => [
+            'class' => 'app\modules\cms\components\PageLinkProvider',
+        ],
+],]);
+```
+Each link provider must to impelement [LinkProvider](https://github.com/NullRefExcep/yii2-cms/blob/master/src/components/LinkProvider.php) interface.
+
+As result you can use this manager to generate link in your widgets or other application parts.
+E.g:
+```
+/** in some component constructor define additional parameter and set it in class property **/
+public function __construct(LinkManager $linkManager, $config = [])
+{
+    $this->linkManager = $linkManager;
+    parent::__construct($config);
+}
+/** generate link **/
+echo $this->linkManager->createUrl('page', $id);
+```
 
 
 Block structure convention
