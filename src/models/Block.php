@@ -117,7 +117,15 @@ class Block extends ActiveRecord
      */
     public function setData(CMSBlock $block)
     {
-        $this->config = serialize($block->getConfig());
+        $this->setDataInternal($block->getConfig());
+    }
+
+    /**
+     * @param $data
+     */
+    public function setDataInternal($data)
+    {
+        $this->config = serialize($data);
     }
 
     /**
@@ -177,24 +185,24 @@ class Block extends ActiveRecord
     }
 
     /**
-     * Prevent deleting block which used on page
-     * @return bool
-     */
-    public function beforeDelete()
-    {
-        if($this->pages) {
-            Yii::$app->session->setFlash('delete-is-not-allowed', Yii::t('cms','This block is used on page!'));
-            return false;
-        }
-        return parent::beforeDelete();
-    }
-
-    /**
      * @inheritdoc
      * @return BlockQuery the active query used by this AR class.
      */
     public static function find()
     {
         return new BlockQuery(get_called_class());
+    }
+
+    /**
+     * Prevent deleting block which used on page
+     * @return bool
+     */
+    public function beforeDelete()
+    {
+        if ($this->pages) {
+            Yii::$app->session->setFlash('delete-is-not-allowed', Yii::t('cms', 'This block is used on page!'));
+            return false;
+        }
+        return parent::beforeDelete();
     }
 }

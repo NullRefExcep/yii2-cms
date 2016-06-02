@@ -53,6 +53,7 @@ class BlockManager extends Component
             'php' => 'nullref\cms\blocks\php',
             'image' => 'nullref\cms\blocks\image',
             'carousel' => 'nullref\cms\blocks\carousel',
+            'menu' => 'nullref\cms\blocks\menu',
         ]);
     }
 

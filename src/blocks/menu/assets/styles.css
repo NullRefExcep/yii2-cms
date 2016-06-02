@@ -1,0 +1,123 @@
+#fancyree_menuTree ul.fancytree-container {
+    border: 1px solid #ccc;
+}
+
+#fancyree_menuTree .ui-fancytree .fa {
+    color: #535353;
+}
+
+#fancyree_menuTree .fancytree-plain.fancytree-container span.fancytree-node {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#fancyree_menuTree ul.fancytree-container {
+    padding: 0;
+    overflow-y: scroll;
+}
+
+#fancyree_menuTree span.fancytree-node.fancytree-drag-source {
+    background-color: transparent;
+}
+
+#fancyree_menuTree span.fancytree-node span.fancytree-expander:hover {
+    color: #337ab7;
+}
+
+#fancyree_menuTree ul.fancytree-container * {
+    transition: all 0.02s;
+}
+
+#fancyree_menuTree ul.fancytree-container *:focus {
+    outline: none;
+}
+
+#fancyree_menuTree ul.fancytree-container li {
+    margin-top: -1px;
+}
+
+#fancyree_menuTree ul.fancytree-container li .fancytree-title {
+    border-bottom: 1px solid #ddd;
+    margin-top: -1px;
+    border-radius: 0;
+}
+
+#fancyree_menuTree .fancytree-node {
+    height: 34px;
+}
+
+#fancyree_menuTree .fancytree-drag-helper {
+    border-bottom: 1px solid #ddd;
+    background: #ddd;
+    margin-left: -10px;
+    width: 100%;
+}
+
+#fancyree_menuTree .fancytree-title {
+    height: 35px;
+    padding-top: 6px;
+}
+
+#fancyree_menuTree .fancytree-focused span.fancytree-title {
+    border: 1px solid #ddd;
+    background: #ddd;
+}
+
+#fancyree_menuTree .fancytree-drop-before {
+    border: 1px dashed #000;
+    height: 34px;
+    width: 100%;
+}
+
+#fancyree_menuTree ul.fancytree-container {
+    height: 400px;
+    max-height: 400px;
+    width: 100%;
+}
+
+#fancyree_menuTree .fancytree-container .fancytree-checkbox,
+#fancyree_menuTree .fancytree-container .fancytree-expander,
+#fancyree_menuTree .fancytree-container .fancytree-icon {
+    margin-top: 7px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 7px;
+}
+
+#linkManger .ui-state-active {
+    border: 1px solid #ddd;
+}
+
+#linkManger .ui-widget-content {
+    border: 1px solid #ddd;
+    border-top: 0;
+}
+
+#linkManger .ui-state-default:focus {
+    outline: none;
+}
+
+#linkManger.ui-accordion .ui-accordion-content {
+    padding: 10px 15px;
+}
+
+#linkManger label {
+    font-weight: normal;
+}
+
+#linkManger {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#linkManger .ui-state-default {
+    background: #fff;
+    font-size: 15px;
+}
+
+#linkManger {
+    margin-bottom: 5px;
+}
+
+#linkManger .ui-state-default.ui-state-active {
+    background: #f5f5f5;
+}

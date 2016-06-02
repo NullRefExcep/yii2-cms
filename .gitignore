@@ -1,2 +1,4 @@
 .idea
 vendor
+codecept.phar
+tests/_output/*

@@ -17,13 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Add Menu Item' => 'Додати пункт меню',
     'ID' => '',
     'Meta description' => '',
     'Meta keywords' => '',
     'Meta robots' => '',
     'Meta title' => '',
-    'Tag' => 'Тег',
-    'Tag class' => 'CSS клас для тега',
+    'Remove' => 'Видалити',
+    'Url' => 'Посилання',
     'Add new block' => 'Додати новий блок',
     'Are you sure you want to delete this item?' => 'Ви дійсно хочете видалити цей запис?',
     'Available Blocks' => 'Доступні блоки',
@@ -56,8 +57,10 @@ return [
     'Public visibility' => 'Публічна видимість',
     'Route' => 'Маршрут',
     'Save' => 'Зберегти',
-    'Title' => 'Заголовок',
+    'Tag' => 'Тег',
+    'Tag class' => 'CSS клас для тега',
     'This block is used on page!' => 'Цей блок використовується на сторінці!',
+    'Title' => 'Заголовок',
     'Type' => 'Тип',
     'Update' => 'Редагувати',
     'Update {modelClass}: ' => 'Редагувати {modelClass}:',

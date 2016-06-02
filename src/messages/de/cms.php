@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Add Menu Item' => '',
     'Add new block' => '',
     'Are you sure you want to delete this item?' => '',
     'Available Blocks' => '',
@@ -52,16 +53,18 @@ return [
     'Pages' => '',
     'Protected visibility' => '',
     'Public visibility' => '',
+    'Remove' => '',
     'Route' => '',
     'Save' => '',
     'Tag' => '',
     'Tag class' => '',
-    'Title' => '',
     'This block is used on page!' => '',
+    'Title' => '',
     'Type' => '',
     'Update' => '',
     'Update {modelClass}: ' => '',
     'Updated At' => '',
     'Updating Page' => '',
+    'Url' => '',
     'Visibility' => '',
 ];
