@@ -31,7 +31,7 @@ class Block extends BaseBlock
     public function rules()
     {
         return [
-            [['content', 'tag'], 'required'],
+            [['content', 'tag'], 'safe'],
             [['tagClass'], 'string'],
         ];
     }

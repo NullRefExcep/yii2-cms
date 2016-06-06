@@ -12,12 +12,15 @@ use yii\helpers\Html;
 class Widget extends BaseWidget
 {
     public $content;
-    public $tag = 'div';
-    public $tagClass = 'alert alert-success';
+    public $tag = '';
+    public $tagClass = '';
 
 
     public function run()
     {
-        return Html::tag($this->tag, $this->content, ['class' => $this->tagClass]);
+        if (!empty($this->tag)) {
+            return Html::tag($this->tag, $this->content, empty($this->tagClass) ? [] : ['class' => $this->tagClass]);
+        }
+        return $this->content;
     }
 }

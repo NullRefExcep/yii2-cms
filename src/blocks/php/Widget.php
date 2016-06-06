@@ -15,6 +15,9 @@ class Widget extends BaseWidget
     {
         ob_start();
         eval(' ?>' . $this->content . '<?php ');
-        return Html::tag($this->tag, ob_get_clean(), ['class' => $this->tagClass]);
+        if (!empty($this->tag)) {
+            return Html::tag($this->tag, ob_get_clean(), ['class' => $this->tagClass]);
+        }
+        return ob_get_clean();
     }
 }
