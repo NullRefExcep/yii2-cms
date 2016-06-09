@@ -18,6 +18,7 @@ CKEDITOR.config.protectedSource.push(/<\\?[\\s\\S]*?\\?>/g);
 $editorConfig = [
     'id' => 'editor',
     'editorOptions' => [
+        'startupMode' => 'source',
         'preset' => 'full',
         'inline' => false,
         'extraPlugins' => 'codemirror',
