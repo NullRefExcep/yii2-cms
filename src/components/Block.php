@@ -8,6 +8,8 @@ use yii\base\Widget;
 
 abstract class Block extends Model
 {
+    public $id;
+
     public $formFile = '_form.php';
 
     public abstract function getName();

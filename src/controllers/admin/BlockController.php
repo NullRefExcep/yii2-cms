@@ -63,12 +63,37 @@ class BlockController extends Controller implements IAdminController
                 return $this->redirect(['/cms/admin/page/update', 'id' => $pageId]);
             }
 
+            if ($redirect = Yii::$app->request->get('redirect_to')) {
+                return $this->redirect($redirect);
+            }
+
             return $this->redirect(['view', 'id' => $model->id, 'page_id' => $pageId]);
         }
 
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('config', [
+                'block' => $block,
+            ]);
+        }
         return $this->render('config', [
             'block' => $block,
         ]);
+    }
+
+    /**
+     * Finds the Block model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Block the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Block::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
@@ -151,21 +176,5 @@ class BlockController extends Controller implements IAdminController
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Block model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Block the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Block::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
     }
 }

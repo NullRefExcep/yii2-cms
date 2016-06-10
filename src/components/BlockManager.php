@@ -37,28 +37,6 @@ class BlockManager extends Component
 
     /**
      * @param $id
-     * @return \nullref\cms\components\Block
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getBlock($id)
-    {
-        return Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
-    }
-
-    public function getList()
-    {
-        return array_merge($this->blocks, $this->_blocks, [
-            'text' => 'nullref\cms\blocks\text',
-            'html' => 'nullref\cms\blocks\html',
-            'php' => 'nullref\cms\blocks\php',
-            'image' => 'nullref\cms\blocks\image',
-            'carousel' => 'nullref\cms\blocks\carousel',
-            'menu' => 'nullref\cms\blocks\menu',
-        ]);
-    }
-
-    /**
-     * @param $id
      * @param $config
      * @return \nullref\cms\components\Widget
      * @throws \yii\base\InvalidConfigException
@@ -79,7 +57,38 @@ class BlockManager extends Component
             ];
         }
         $widget = Yii::createObject($config);
+        if (method_exists($widget, 'setBlock')) {
+            /** @var Block $blockObj */
+            $blockObj = $this->getBlock($block->class_name, $block->getData());
+            $blockObj->id = $block->id;
+            /** @var $widget SetBlockWidget */
+            $widget->setBlock($blockObj);
+        }
         return $widget;
+    }
+
+    public function getList()
+    {
+        return array_merge($this->blocks, $this->_blocks, [
+            'text' => 'nullref\cms\blocks\text',
+            'html' => 'nullref\cms\blocks\html',
+            'php' => 'nullref\cms\blocks\php',
+            'image' => 'nullref\cms\blocks\image',
+            'carousel' => 'nullref\cms\blocks\carousel',
+            'menu' => 'nullref\cms\blocks\menu',
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \nullref\cms\components\Block
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getBlock($id, $params = [])
+    {
+        $object = Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
+        Yii::configure($object, $params);
+        return $object;
     }
 
     /**
