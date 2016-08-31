@@ -22,12 +22,10 @@ class Installer extends ModuleInstaller
         if (Console::confirm('Create upload folder?')) {
             try {
                 $this->createFolder('@webroot/uploads');
-                echo 'Folder @webroot/uploads was created' . PHP_EOL;
+                Console::output('Folder @webroot/uploads was created');
             } catch (\Exception $e) {
-                echo $e->getMessage() . PHP_EOL;
+                Console::output($e->getMessage());
             }
         }
     }
-
-
 } 
