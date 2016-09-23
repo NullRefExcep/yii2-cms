@@ -5,6 +5,7 @@ namespace nullref\cms\actions;
 use nullref\cms\models\Page;
 use Yii;
 use yii\base\Action;
+use yii\caching\TagDependency;
 use yii\web\NotFoundHttpException;
 
 
@@ -15,7 +16,7 @@ use yii\web\NotFoundHttpException;
 class PageView extends Action
 {
     public $view = 'view';
-    
+
     public function run()
     {
         if (($route = Yii::$app->request->getQueryParam('route')) == null) {
@@ -23,7 +24,7 @@ class PageView extends Action
         }
         $page = Page::getDb()->cache(function () use ($route) {
             return Page::find()->byRoute($route)->one();
-        });
+        }, null, new TagDependency(['tags' => 'cms.page.' . $route]));
 
         if (!isset($page)) {
             throw new NotFoundHttpException(Yii::t('cms', 'Page not found.'));
@@ -38,6 +39,8 @@ class PageView extends Action
         $result = $this->controller->render($this->view, [
             'page' => $page,
         ]);
+
+        //@TODO add tag dependency by blocks
 
         return $result;
     }

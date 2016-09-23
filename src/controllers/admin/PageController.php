@@ -5,6 +5,7 @@ namespace nullref\cms\controllers\admin;
 use nullref\cms\models\Page;
 use nullref\core\interfaces\IAdminController;
 use Yii;
+use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -101,7 +102,8 @@ class PageController extends Controller implements IAdminController
 
         $default = Yii::$app->request->isPost ? ['PageHasBlock' => []] : [];
         if ($model->loadWithRelations(array_merge($default, Yii::$app->request->post())) && $model->save()) {
-            Yii::$app->cache->delete('cms.page.' . $model->route);
+            TagDependency::invalidate(Yii::$app->cache, 'cms.page.' . $model->route);
+            TagDependency::invalidate(Yii::$app->cache, 'cms.page.' . $model->oldAttributes['route']);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

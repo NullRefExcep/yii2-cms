@@ -1,6 +1,7 @@
 <?php
 
 use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 use nullref\cms\assets\PageFormAssets;
 use nullref\cms\models\Page;
 use unclead\widgets\MultipleInput;
@@ -55,9 +56,9 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
             <div class="row" data-type="<?= Page::TYPE_CONTENT ?>" style="display: none">
                 <div class="col-md-12">
                     <?= $form->field($model, 'content')->widget(CKEditor::className(), [
-                        'editorOptions' => [
+                        'editorOptions' => ElFinder::ckeditorOptions('elfinder-backend', [
                             'height' => 300,
-                        ]
+                        ]),
                     ]) ?>
                 </div>
             </div>
