@@ -3,6 +3,7 @@
 namespace nullref\cms\controllers\admin;
 
 use nullref\cms\models\Block;
+use nullref\cms\models\BlockSearch;
 use nullref\cms\models\PageHasBlock;
 use nullref\core\interfaces\IAdminController;
 use Yii;
@@ -17,6 +18,9 @@ use yii\web\NotFoundHttpException;
  */
 class BlockController extends Controller implements IAdminController
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -29,6 +33,10 @@ class BlockController extends Controller implements IAdminController
         ];
     }
 
+    /**
+     * @param null $id
+     * @return string|\yii\web\Response
+     */
     public function actionConfig($id = null)
     {
         /** @var Block $model */
@@ -105,11 +113,11 @@ class BlockController extends Controller implements IAdminController
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Block::find()->visible(),
-        ]);
+        $searchModel = new BlockSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

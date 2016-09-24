@@ -1,11 +1,13 @@
 <?php
 
+use nullref\cms\components\Block as BlockComponent;
 use nullref\cms\models\Block;
 use nullref\cms\models\Page;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $searchModel nullref\cms\models\BlockSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('cms', 'Blocks');
@@ -33,18 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
             'name',
             [
-                //'filter'=>\nullref\cms\components\Block::getManager()->getDropDownArray(),
+                'filter' => BlockComponent::getManager()->getDropDownArray(),
                 'attribute' => 'class_name',
                 'value' => 'typeName'
             ],
-            'created_at:datetime',
-            'updated_at:datetime',
+            ['attribute' => 'created_at', 'format' => 'datetime', 'filter' => false],
+            ['attribute' => 'updated_at', 'format' => 'datetime', 'filter' => false],
             [
                 'attribute' => 'pages',
                 'format' => 'html',
