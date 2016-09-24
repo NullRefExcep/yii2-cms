@@ -16,6 +16,9 @@ use yii\web\NotFoundHttpException;
  */
 class PageController extends Controller implements IAdminController
 {
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         return [
@@ -120,11 +123,19 @@ class PageController extends Controller implements IAdminController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
+        TagDependency::invalidate(Yii::$app->cache, 'cms.page.' . $model->route);
 
         return $this->redirect(['index']);
     }
 
+    /**
+     * //very WIP
+     *
+     * @param $id
+     * @return string
+     */
     public function actionWysiwyg($id)
     {
         $model = $this->findModel($id);

@@ -5,6 +5,7 @@ namespace nullref\cms\components;
 use nullref\cms\models\Block as BlockModel;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
 use Yii;
 
@@ -39,14 +40,14 @@ class BlockManager extends Component
      * @param $id
      * @param $config
      * @return \nullref\cms\components\Widget
-     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\base\InvalidConfigException | \Exception
      */
     public function getWidget($id, $config = [])
     {
         /** @var BlockModel $block */
         $block = BlockModel::getDb()->cache(function () use ($id) {
             return BlockModel::find()->where(['id' => $id])->one();
-        });
+        }, null, new TagDependency(['tags' => 'cms.block.' . $id]));
         if ($block) {
             $config = ArrayHelper::merge($config, $block->getData());
             $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
@@ -56,6 +57,7 @@ class BlockManager extends Component
                 'id' => $id,
             ];
         }
+        /** @var \nullref\cms\components\Widget $widget */
         $widget = Yii::createObject($config);
         if (method_exists($widget, 'setBlock')) {
             /** @var Block $blockObj */
@@ -67,6 +69,9 @@ class BlockManager extends Component
         return $widget;
     }
 
+    /**
+     * @return array
+     */
     public function getList()
     {
         return array_merge($this->blocks, $this->_blocks, [
@@ -81,11 +86,13 @@ class BlockManager extends Component
 
     /**
      * @param $id
-     * @return \nullref\cms\components\Block
+     * @param array $params
+     * @return Block
      * @throws \yii\base\InvalidConfigException
      */
     public function getBlock($id, $params = [])
     {
+        /** @var \nullref\cms\components\Block $object */
         $object = Yii::createObject($this->getList()[$id] . self::CLASS_BLOCK);
         Yii::configure($object, $params);
         return $object;

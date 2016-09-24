@@ -152,36 +152,12 @@ class Block extends ActiveRecord
         return $this->hasMany(Page::className(), ['id' => 'page_id'])->viaTable(PageHasBlock::tableName(), ['block_id' => 'id']);
     }
 
+    /**
+     * @return bool
+     */
     public function isPublic()
     {
         return $this->visibility === self::VISIBILITY_PUBLIC;
-    }
-
-    /**
-     * Invalidate cache when update model
-     * @param bool $insert
-     * @param array $changedAttributes
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        if (!$insert) {
-            $cmd = self::find()->where(['id' => $this->id])->createCommand();
-
-            $cacheKey = [
-                Command::className(),
-                'fetch',
-                null,
-                self::getDb()->dsn,
-                self::getDb()->username,
-                $cmd->rawSql,
-            ];
-            if (Yii::$app instanceof Application) {
-                if (Yii::$app->cache->exists($cacheKey)) {
-                    Yii::$app->cache->delete($cacheKey);
-                }
-            }
-        }
-        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

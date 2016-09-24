@@ -6,6 +6,7 @@ use nullref\cms\models\Block;
 use nullref\cms\models\PageHasBlock;
 use nullref\core\interfaces\IAdminController;
 use Yii;
+use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -52,6 +53,8 @@ class BlockController extends Controller implements IAdminController
         if ($block->load(Yii::$app->request->post()) && ($block->validate())) {
             $model->setData($block);
             $model->save();
+            TagDependency::invalidate(Yii::$app->cache, 'cms.block.' . $model->id);
+            TagDependency::invalidate(Yii::$app->cache, 'cms.block.' . $model->oldAttributes['id']);
             Yii::$app->session->remove('new-block');
 
             /** Create relation when path page_id parameter */
@@ -157,6 +160,8 @@ class BlockController extends Controller implements IAdminController
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $pageId = Yii::$app->request->get('page_id');
+            TagDependency::invalidate(Yii::$app->cache, 'cms.block.' . $model->id);
+            TagDependency::invalidate(Yii::$app->cache, 'cms.block.' . $model->oldAttributes['id']);
             return $this->redirect(['config', 'id' => $model->id, 'page_id' => $pageId]);
         } else {
             return $this->render('update', [
@@ -174,6 +179,7 @@ class BlockController extends Controller implements IAdminController
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        TagDependency::invalidate(Yii::$app->cache, 'cms.block.' . $id);
 
         return $this->redirect(['index']);
     }

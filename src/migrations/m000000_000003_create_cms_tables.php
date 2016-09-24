@@ -50,6 +50,7 @@ class m000000_000003_create_cms_tables extends Migration
         ], $this->getTableOptions());
 
         $this->addPrimaryKey('block_PK', $this->tables['block'], 'id');
+
         /**
          * Create pageHasBlock table
          */
