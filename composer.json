@@ -17,7 +17,8 @@
         "bower-asset/owl.carousel": "2.*",
         "trntv/yii2-aceeditor": "*",
         "unclead/yii2-multiple-input": ">=1.2.10",
-        "wbraganca/yii2-fancytree-widget": "1.0.1"
+        "wbraganca/yii2-fancytree-widget": "1.0.1",
+        "rmrevin/yii2-fontawesome": "^2.16"
     },
     "autoload": {
         "psr-4": {
