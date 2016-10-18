@@ -78,7 +78,7 @@ class Generator extends BaseGenerator
      */
     public function getName()
     {
-        return 'Block Migration Generator';
+        return 'CMS Block Migration Generator';
     }
 
     /**

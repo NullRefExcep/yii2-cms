@@ -62,7 +62,7 @@ class Bootstrap implements BootstrapInterface
                     /** @var Gii $gii */
                     $gii = $event->sender;
                     $gii->generators['block-migration-generator'] = [
-                        'class' => 'nullref\cms\generators\migration\Generator',
+                        'class' => 'nullref\cms\generators\block_migration\Generator',
                     ];
                     $gii->generators['block-generator'] = [
                         'class' => 'nullref\cms\generators\block\Generator',

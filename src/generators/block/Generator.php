@@ -120,7 +120,7 @@ EOD;
      */
     public function getName()
     {
-        return 'Block Generator';
+        return 'CMS Block Generator';
     }
 
     /**
