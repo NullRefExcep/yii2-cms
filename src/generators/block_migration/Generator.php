@@ -1,6 +1,6 @@
 <?php
 
-namespace nullref\cms\generators\migration;
+namespace nullref\cms\generators\block_migration;
 
 use nullref\cms\models\Block;
 use nullref\core\traits\VariableExportTrait;
