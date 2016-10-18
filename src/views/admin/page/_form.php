@@ -4,7 +4,7 @@ use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use nullref\cms\assets\PageFormAssets;
 use nullref\cms\models\Page;
-use unclead\widgets\MultipleInput;
+use unclead\multipleinput\MultipleInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
