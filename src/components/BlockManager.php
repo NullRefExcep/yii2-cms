@@ -59,13 +59,9 @@ class BlockManager extends Component
         }
         /** @var \nullref\cms\components\Widget $widget */
         $widget = Yii::createObject($config);
-        if (method_exists($widget, 'setBlock')) {
-            /** @var Block $blockObj */
-            $blockObj = $this->getBlock($block->class_name, $block->getData());
-            $blockObj->id = $block->id;
-            /** @var $widget SetBlockWidget */
-            $widget->setBlock($blockObj);
-        }
+        $blockObj = $this->getBlock($block->class_name, $block->getData());
+        $blockObj->id = $block->id;
+        $widget->setBlock($blockObj);
         return $widget;
     }
 

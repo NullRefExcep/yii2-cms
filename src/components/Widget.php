@@ -9,6 +9,18 @@ use yii\base\Widget as BaseWidget;
 
 class Widget extends BaseWidget
 {
+    protected $_block;
+
+    public function getBlock()
+    {
+        return $this->_block;
+    }
+
+    public function setBlock($block)
+    {
+        $this->_block = $block;
+    }
+
     function __toString()
     {
         ob_start();
