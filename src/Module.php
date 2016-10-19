@@ -57,6 +57,11 @@ class Module extends BaseModule implements IAdminModule
                     'icon' => 'clone',
                     'url' => '/cms/admin/block',
                 ],
+                [
+                    'label' => Yii::t('cms', 'Files'),
+                    'icon' => 'files-o',
+                    'url' => '/cms/admin/files',
+                ],
             ]
         ];
     }

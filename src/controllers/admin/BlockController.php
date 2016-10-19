@@ -8,7 +8,6 @@ use nullref\cms\models\PageHasBlock;
 use nullref\core\interfaces\IAdminController;
 use Yii;
 use yii\caching\TagDependency;
-use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
