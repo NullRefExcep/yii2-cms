@@ -46,6 +46,7 @@ class Module extends BaseModule implements IAdminModule
         return [
             'label' => Yii::t('cms', 'CMS'),
             'icon' => 'columns',
+            'order' => 2,
             'items' => [
                 [
                     'label' => Yii::t('cms', 'Pages'),
