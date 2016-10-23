@@ -1,11 +1,13 @@
 <?php
 
+namespace nullref\cms\migrations;
+
+use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
-use yii\db\Schema;
 
 class m000000_000005_fix_convention extends Migration
 {
-    use \nullref\core\traits\MigrationTrait;
+    use MigrationTrait;
 
     protected $tables = [
         'page' => '{{%cms_page}}',

@@ -1,11 +1,13 @@
 <?php
 
+namespace nullref\cms\migrations;
+
+use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
-use yii\db\Schema;
 
 class m000000_000004_add_block_name extends Migration
 {
-    use \nullref\core\traits\MigrationTrait;
+    use MigrationTrait;
 
     public function up()
     {

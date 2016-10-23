@@ -1,12 +1,13 @@
 <?php
 
+namespace nullref\cms\migrations;
+
+use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
-use yii\db\Schema;
 
 class m000000_000007_remove_not_need_columns extends Migration
 {
-    use \nullref\core\traits\MigrationTrait;
-
+    use MigrationTrait;
 
     public function up()
     {
