@@ -21,7 +21,7 @@ or add
 
 to the require section of your `composer.json` file.
 
-Run command `php yii module/install cms` to install this module. It will be added to your application config (`@app/config/installed_modules.php`)
+Run command `php yii module/install nullref/yii2-cms` to install this module. It will be added to your application config (`@app/config/installed_modules.php`)
 
 Concept
 -------
@@ -89,7 +89,7 @@ Each link provider must to impelement [LinkProvider](https://github.com/NullRefE
 
 As result you can use this manager to generate link in your widgets or other application parts.
 E.g:
-```
+```php
 /** in some component constructor define additional parameter and set it in class property **/
 public function __construct(LinkManager $linkManager, $config = [])
 {
