@@ -1,7 +1,7 @@
 <?php
 
 use nullref\cms\assets\TreeAsset;
-use nullref\cms\generators\migration\Generator;
+use nullref\cms\generators\block_migration\Generator;
 use rmrevin\yii\fontawesome\AssetBundle;
 use wbraganca\fancytree\FancytreeWidget;
 use yii\helpers\Html;
