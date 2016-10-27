@@ -152,4 +152,15 @@ abstract class Block extends BaseBlock
         parent::__set($name, $value);
         return;
     }
+
+    public function canGetProperty($name, $checkVars = true, $checkBehaviors = true)
+    {
+        foreach ($this->_languagesMap as $key => $languages) {
+            if (substr($name, -3) === '_' . $key) {
+                $attr = substr($name, 0, count($name) - 4);
+                return property_exists($this, $attr);
+            }
+        }
+        return parent::canGetProperty($name, $checkVars, $checkBehaviors);
+    }
 }
