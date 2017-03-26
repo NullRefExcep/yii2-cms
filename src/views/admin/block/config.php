@@ -21,6 +21,16 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <?= $block->render() ?>
 
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->errorSummary($block) ?>
+
+    <?= $this->renderFile($block->getForm(), ['form' => $form, 'block' => $block]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('cms', 'Save'), ['class' => 'btn btn-primary']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

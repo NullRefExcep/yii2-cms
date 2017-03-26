@@ -52,6 +52,7 @@ class BlockManager extends Component
             $config = ArrayHelper::merge($config, $block->getData());
             $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
         } else {
+            Yii::error('Can\'t find cms block with id "' . $id . '""');
             $config = [
                 'class' => $this->emptyBlockClass,
                 'id' => $id,
@@ -59,9 +60,11 @@ class BlockManager extends Component
         }
         /** @var \nullref\cms\components\Widget $widget */
         $widget = Yii::createObject($config);
-        $blockObj = $this->getBlock($block->class_name, $block->getData());
-        $blockObj->id = $block->id;
-        $widget->setBlock($blockObj);
+        if ($block) {
+            $blockObj = $this->getBlock($block->class_name, $block->getData());
+            $blockObj->id = $block->id;
+            $widget->setBlock($blockObj);
+        }
         return $widget;
     }
 
