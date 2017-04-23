@@ -37,6 +37,7 @@ return [
     'Create Page' => '',
     'Created At' => '',
     'Delete' => '',
+    'Files' => '',
     'ID' => '',
     'Layout' => '',
     'Layout file must exist' => '',

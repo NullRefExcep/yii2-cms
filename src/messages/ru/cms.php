@@ -17,13 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Add Menu Item' => 'Добавить пункт меню',
+    'Files' => 'Файлы',
     'Meta description' => '',
     'Meta keywords' => '',
     'Meta robots' => '',
     'Meta title' => '',
-    'Remove' => 'Удалить',
-    'Url' => 'Ссылка',
+    'Add Menu Item' => 'Добавить пункт меню',
     'Add new block' => 'Добавить новый блок',
     'Are you sure you want to delete this item?' => 'Вы уверенны что хотите удалить этот элемент?',
     'Available Blocks' => 'Доступные блоки',
@@ -55,6 +54,7 @@ return [
     'Pages' => 'Страницы',
     'Protected visibility' => 'Скрытая',
     'Public visibility' => 'Публичная',
+    'Remove' => 'Удалить',
     'Route' => 'Маршрут',
     'Save' => 'Сохранить',
     'Tag' => 'Тег',
@@ -66,5 +66,6 @@ return [
     'Update {modelClass}: ' => 'Обновить {modelClass}: ',
     'Updated At' => 'Обновлено',
     'Updating Page' => 'Редактирование страницы',
+    'Url' => 'Ссылка',
     'Visibility' => 'Видимость',
 ];
