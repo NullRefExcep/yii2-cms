@@ -18,6 +18,21 @@ $pageTypesMap = Page::getTypesMap();
 
 /** @var \nullref\cms\components\PageLayoutManager $layoutManager */
 $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
+$this->registerJs(<<<JS
+jQuery('.save-and-continue-edit').on('click', function (e) {
+    var btn = jQuery(this);
+    var form = btn.parents('form');
+    form.attr('action', function(i, url) {
+      return url + ( url.indexOf('?') >= 0 ? '&' : '?' ) + 'continue_edit=1';
+    });
+    form.submit();
+    e.preventDefault(e);
+    return false;
+});
+
+JS
+
+);
 ?>
 <div class="hide">
     <li class="list-group-item" id="pageItemTmpl">
@@ -36,7 +51,10 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
 
 <div class="page-form">
 
-    <?php $form = ActiveForm::begin(['encodeErrorSummary' => false]); ?>
+    <?php $form = ActiveForm::begin([
+        'action' => ($model->isNewRecord ? ['/cms/admin/page/create'] : ['/cms/admin/page/update', 'id' => $model->id]),
+        'encodeErrorSummary' => false,
+    ]); ?>
     <div class="row">
         <div class="col-md-12">
             <?= $form->errorSummary($model) ?>
@@ -93,8 +111,23 @@ $layoutManager = Yii::$app->getModule('cms')->get('layoutManager');
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('cms', 'Create') : Yii::t('cms', 'Save'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::button(Yii::t('cms', 'Save and Continue Edit'), ['class' => 'btn btn-primary save-and-continue-edit']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
+</div>
+
+
+<div class="modal fade" id="blockModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
 </div>

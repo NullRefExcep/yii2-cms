@@ -3,7 +3,9 @@
 use nullref\cms\components\Block as BlockComponent;
 use nullref\cms\models\Block;
 use nullref\cms\models\Page;
+use yii\bootstrap\Dropdown;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -12,6 +14,10 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('cms', 'Blocks');
 $this->params['breadcrumbs'][] = $this->title;
+$items = [];
+foreach (BlockComponent::getManager()->getDropDownArray() as $key => $name) {
+    $items[] = ['label' => $name, 'url' => ['create', 'class_name' => $key]];
+}
 ?>
 <div class="block-index">
 
@@ -30,7 +36,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif ?>
 
     <p>
+    <div class="btn-group">
         <?= Html::a(Yii::t('cms', 'Create Block'), ['create'], ['class' => 'btn btn-success']) ?>
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <?= Dropdown::widget([
+            'items' => $items,
+        ]);
+        ?>
+    </div>
     </p>
 
     <?= GridView::widget([
@@ -52,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'pages',
                 'format' => 'html',
                 'value' => function (Block $model) {
-                    $names = \yii\helpers\ArrayHelper::getColumn($model->pages, function (Page $page) {
+                    $names = ArrayHelper::getColumn($model->pages, function (Page $page) {
                         return Html::a($page->title, ['/cms/admin/page/update', 'id' => $page->id], ['class' => 'label label-primary']);
                     });
                     return implode(' ', $names);

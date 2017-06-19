@@ -25,6 +25,7 @@ span.fancytree-node.fancytree-selected span.fancytree-title {
     background-color: transparent;
     border-color: transparent;
 }
+
 span.fancytree-node.fancytree-partsel span.fancytree-checkbox {
     background-position: 0 -32px;
 }

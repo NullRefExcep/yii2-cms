@@ -2,7 +2,7 @@
 
 namespace nullref\cms\blocks\php;
 
-use  nullref\cms\blocks\text\Block as BaseBlock;
+use nullref\cms\blocks\text\Block as BaseBlock;
 
 /**
  * Class Block

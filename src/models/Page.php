@@ -3,8 +3,8 @@
 namespace nullref\cms\models;
 
 use nullref\useful\behaviors\RelatedBehavior;
-use nullref\useful\traits\GetDefinition;
 use nullref\useful\SerializeBehavior;
+use nullref\useful\traits\GetDefinition;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -81,6 +81,7 @@ class Page extends ActiveRecord
             'related' => [
                 'filedSuffix' => '_list',
                 'class' => RelatedBehavior::className(),
+                'indexBy' => 'id',
                 'fields' => [
                     'items' => PageHasBlock::className(),
                 ]

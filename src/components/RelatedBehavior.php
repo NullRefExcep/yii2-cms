@@ -22,7 +22,7 @@ class RelatedBehavior extends Behavior
     /** @var string */
     public $newKeyPrefix = 'new_';
 
-    /** @var null| string | callable  */
+    /** @var null| string | callable */
     public $indexBy = null;
 
     /** @var ActiveRecord[][] */

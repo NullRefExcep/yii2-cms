@@ -1,7 +1,7 @@
 <?php
 
-use nullref\cms\components\Block as CMSBlock;
 use nullref\cms\blocks\EmptyBlock;
+use nullref\cms\components\Block as CMSBlock;
 
 /** @var $this \yii\web\View */
 /** @var $page \nullref\cms\models\Page */

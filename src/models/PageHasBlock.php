@@ -2,7 +2,6 @@
 
 namespace nullref\cms\models;
 
-use Yii;
 use yii\db\ActiveRecord;
 
 /**

@@ -21,17 +21,17 @@ class PageLayoutManager extends Component implements IList
 {
     protected $_list = [];
 
-    public function setList($value)
-    {
-        if ($value instanceof \Closure){
-            $value = call_user_func($value);
-        }
-        $this->_list = $value;
-    }
-
     public function getList()
     {
         return $this->_list;
+    }
+
+    public function setList($value)
+    {
+        if ($value instanceof \Closure) {
+            $value = call_user_func($value);
+        }
+        $this->_list = $value;
     }
 
     public function init()

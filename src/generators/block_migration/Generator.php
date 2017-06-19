@@ -17,6 +17,55 @@ class Generator extends BaseGenerator
 
     public $blocks;
 
+    public static function getBlocks()
+    {
+        return Block::find()->all();
+    }
+
+    public static function getNestedList($blockIds)
+    {
+        if (!empty($blockIds)) {
+            $blockIds = self::getBlockIds($blockIds);
+        }
+
+        $blocks = Block::find()->orderBy(['id' => SORT_ASC])->orderBy(['class_name' => SORT_ASC])->asArray()->all();
+
+        $key = -1;
+        $names = [];
+        $result = [];
+        foreach ($blocks as $block) {
+            $name = $block['class_name'];
+            if (!in_array($name, $names)) {
+                $groupName = $name;
+                $key++;
+                array_push($names, $name);
+
+                $result[$key] = [
+                    'title' => $groupName,
+                    'key' => $groupName . '-type',
+                    'selected' => false,
+                    'folder' => true,
+                    'children' => [],
+                    'expanded' => true,
+                ];
+            }
+
+            $selected = false;
+            if (!empty($blockIds)) {
+                $selected = (in_array($block['id'], $blockIds)) ? true : false;
+            }
+
+            $block = [
+                'title' => $block['id'],
+                'key' => $block['id'],
+                'selected' => $selected
+            ];
+            $result[$key]['children'][] = $block;
+
+        }
+        return $result;
+    }
+
     public function generate()
     {
         $blockIds = self::getBlockIds($this->blocks);
@@ -63,6 +112,24 @@ class Generator extends BaseGenerator
         return $files;
     }
 
+    public static function getBlockIds($blocks)
+    {
+        $blockIds = [];
+        $blockTypes = [];
+
+        foreach ($blocks as $block) {
+            $typePosition = strpos($block, '-type');
+            if ($typePosition) {
+                array_push($blockTypes, substr($block, 0, $typePosition));
+            } else {
+                array_push($blockIds, $block);
+            }
+        }
+        $otherIds = Block::find()->select(['id'])->where(['class_name' => $blockTypes])->column();
+
+        return ArrayHelper::merge($blockIds, $otherIds);
+    }
+
     /**
      * @return array
      */
@@ -98,73 +165,6 @@ class Generator extends BaseGenerator
             'path' => 'Specify the directory for storing the migration for your  block. You may use path alias here, e.g.,
                 <code>@app/migrations</code>'
         ]);
-    }
-
-    public static function getBlocks()
-    {
-        return Block::find()->all();
-    }
-
-    public static function getBlockIds($blocks)
-    {
-        $blockIds = [];
-        $blockTypes = [];
-
-        foreach ($blocks as $block) {
-            $typePosition = strpos($block, '-type');
-            if ($typePosition) {
-                array_push($blockTypes, substr($block, 0, $typePosition));
-            } else {
-                array_push($blockIds, $block);
-            }
-        }
-        $otherIds = Block::find()->select(['id'])->where(['class_name' => $blockTypes])->column();
-
-        return ArrayHelper::merge($blockIds, $otherIds);
-    }
-
-    public static function getNestedList($blockIds)
-    {
-        if (!empty($blockIds)) {
-            $blockIds = self::getBlockIds($blockIds);
-        }
-
-        $blocks = Block::find()->orderBy(['id' => SORT_ASC])->orderBy(['class_name' => SORT_ASC])->asArray()->all();
-
-        $key = -1;
-        $names = [];
-        $result = [];
-        foreach ($blocks as $block) {
-            $name = $block['class_name'];
-            if (!in_array($name, $names)) {
-                $groupName = $name;
-                $key++;
-                array_push($names, $name);
-
-                $result[$key] = [
-                    'title' => $groupName,
-                    'key' => $groupName . '-type',
-                    'selected' => false,
-                    'folder' => true,
-                    'children' => [],
-                    'expanded' => true,
-                ];
-            }
-
-            $selected = false;
-            if (!empty($blockIds)) {
-                $selected = (in_array($block['id'], $blockIds)) ? true : false;
-            }
-
-            $block = [
-                'title' => $block['id'],
-                'key' => $block['id'],
-                'selected' => $selected
-            ];
-            $result[$key]['children'][] = $block;
-
-        }
-        return $result;
     }
 
 }

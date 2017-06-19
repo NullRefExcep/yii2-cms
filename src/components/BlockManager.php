@@ -3,11 +3,11 @@
 namespace nullref\cms\components;
 
 use nullref\cms\models\Block as BlockModel;
+use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
-use Yii;
 
 class BlockManager extends Component
 {

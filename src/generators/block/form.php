@@ -1,7 +1,5 @@
 <?php
 
-use nullref\cms\generators\block\Generator;
-
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $generator yii\gii\generators\module\Generator */

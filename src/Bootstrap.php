@@ -3,12 +3,12 @@
 namespace nullref\cms;
 
 use nullref\cms\components\PageUrlRule;
+use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\gii\Module as Gii;
 use yii\i18n\PhpMessageSource;
 use yii\web\Application as WebApplication;
-use Yii;
 
 class Bootstrap implements BootstrapInterface
 {

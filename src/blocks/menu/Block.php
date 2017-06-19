@@ -5,8 +5,6 @@ namespace nullref\cms\blocks\menu;
 use nullref\cms\components\Block as BaseBlock;
 use nullref\cms\components\LinkManager;
 use nullref\cms\components\LinkProvider;
-use nullref\useful\behaviors\JsonBehavior;
-use Yii;
 use yii\helpers\Json;
 
 /**

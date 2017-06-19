@@ -79,18 +79,21 @@ class PageController extends Controller implements IAdminController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($continue_edit = false)
     {
         /** @var Page $model */
         $model = Yii::createObject(Page::className());
 
         if ($model->loadWithRelations(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if (!$continue_edit) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('success', Yii::t('cms', 'Page was created'));
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -99,7 +102,7 @@ class PageController extends Controller implements IAdminController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $continue_edit = false)
     {
         $model = $this->findModel($id);
 
@@ -107,12 +110,15 @@ class PageController extends Controller implements IAdminController
         if ($model->loadWithRelations(array_merge($default, Yii::$app->request->post())) && $model->save()) {
             TagDependency::invalidate(Yii::$app->cache, 'cms.page.' . $model->route);
             TagDependency::invalidate(Yii::$app->cache, 'cms.page.' . $model->oldAttributes['route']);
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if (!$continue_edit) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                Yii::$app->session->setFlash('success', Yii::t('cms', 'Page was updated'));
+            }
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

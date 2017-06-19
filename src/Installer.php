@@ -6,7 +6,6 @@
 namespace nullref\cms;
 
 use nullref\core\components\ModuleInstaller;
-use Yii;
 use yii\helpers\Console;
 
 class Installer extends ModuleInstaller
