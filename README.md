@@ -31,6 +31,8 @@ You can create custom widgets and register it in BlockManager.
 
 Also you can create pages with html content by WYSIWYG [CKEditor](https://github.com/MihailDev/yii2-ckeditor).
 
+[User Guide](https://github.com/NullRefExcep/yii2-cms/blob/master/docs/UserGuide.md)
+------------
 
 BlockManager
 ------------
