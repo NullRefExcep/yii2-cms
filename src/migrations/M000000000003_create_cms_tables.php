@@ -5,7 +5,7 @@ namespace nullref\cms\migrations;
 use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
 
-class m000000_000003_create_cms_tables extends Migration
+class M000000000003_create_cms_tables extends Migration
 {
     use MigrationTrait;
 

@@ -4,7 +4,7 @@ namespace nullref\cms\migrations;
 
 use yii\db\Migration;
 
-class m000000_000006_add_columns_to_cms_page extends Migration
+class M000000000006_add_columns_to_cms_page extends Migration
 {
     public function safeUp()
     {

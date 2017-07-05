@@ -5,7 +5,7 @@ namespace nullref\cms\migrations;
 use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
 
-class m000000_000005_fix_convention extends Migration
+class M000000000005_fix_convention extends Migration
 {
     use MigrationTrait;
 

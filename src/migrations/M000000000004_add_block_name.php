@@ -5,7 +5,7 @@ namespace nullref\cms\migrations;
 use nullref\core\traits\MigrationTrait;
 use yii\db\Migration;
 
-class m000000_000004_add_block_name extends Migration
+class M000000000004_add_block_name extends Migration
 {
     use MigrationTrait;
 
