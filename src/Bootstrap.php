@@ -46,7 +46,18 @@ class Bootstrap implements BootstrapInterface
                         'roots' => [
                             [
                                 'path' => 'uploads',
-                                'name' => 'Uploads'
+                                'name' => 'Uploads',
+                                'options' => [
+                                    'attributes' => [
+                                        [
+                                            'pattern' => '/\.(?:gitignore)$/',
+                                            'read' => false,
+                                            'write' => false,
+                                            'hidden' => true,
+                                            'locked' => false
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ];
