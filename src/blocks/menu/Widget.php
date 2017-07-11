@@ -47,6 +47,7 @@ class Widget extends BaseWidget
             if (isset($item['children'])) {
                 $result[$options['itemsField']] = $this->buildItems($item['children']);
             }
+            $result['active'] = \Yii::$app->request->url == $result['url'];
             return $result;
         }, $items);
     }
