@@ -16,6 +16,8 @@ class BlockManager extends Component
 
     public $blocks = [];
 
+    public $cachePrefix = 'cms.block.';
+
     public $emptyBlockClass = 'nullref\cms\blocks\EmptyBlock';
 
     protected $_blocks = [];
@@ -47,7 +49,7 @@ class BlockManager extends Component
         /** @var BlockModel $block */
         $block = BlockModel::getDb()->cache(function () use ($id) {
             return BlockModel::find()->where(['id' => $id])->one();
-        }, null, new TagDependency(['tags' => 'cms.block.' . $id]));
+        }, null, new TagDependency(['tags' => $this->cachePrefix . $id]));
         if ($block) {
             $config = ArrayHelper::merge($config, $block->getData());
             $config['class'] = $this->getList()[$block->class_name] . self::CLASS_WIDGET;
