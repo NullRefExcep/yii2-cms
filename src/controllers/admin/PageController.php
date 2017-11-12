@@ -67,7 +67,7 @@ class PageController extends Controller implements IAdminController
      */
     protected function findModel($id)
     {
-        if (($model = Page::findOne($id)) !== null) {
+        if (($model = call_user_func([Page::getDefinitionClass(), 'findOne'],$id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
