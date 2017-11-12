@@ -68,4 +68,5 @@ return [
     'Updating Page' => 'Редагування сторінки',
     'Url' => 'Посилання',
     'Visibility' => 'Видимість',
+    'Save and Continue Edit' => 'Зберегти та продовжити редагування',
 ];
