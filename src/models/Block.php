@@ -4,6 +4,7 @@ namespace nullref\cms\models;
 
 use nullref\cms\components\Block as CMSBlock;
 use nullref\cms\components\Widget;
+use nullref\useful\traits\GetDefinition;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -23,6 +24,8 @@ use yii\db\ActiveRecord;
  */
 class Block extends ActiveRecord
 {
+    use GetDefinition;
+    
     /**
      * Visibility levels
      */
