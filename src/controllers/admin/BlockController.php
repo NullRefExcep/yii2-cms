@@ -70,7 +70,7 @@ class BlockController extends Controller implements IAdminController
      */
     protected function findModel($id)
     {
-        if (($model = Block::findOne($id)) !== null) {
+        if (($model = call_user_func([Block::getDefinitionClass(), 'findOne'],$id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
