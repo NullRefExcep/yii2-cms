@@ -79,7 +79,7 @@ class Page extends ActiveRecord
                 'updatedAtAttribute' => 'updated_at',
             ],
             'related' => [
-                'filedSuffix' => '_list',
+                'fieldSuffix' => '_list',
                 'class' => RelatedBehavior::className(),
                 'indexBy' => 'id',
                 'fields' => [
