@@ -23,7 +23,7 @@ class PageController extends Controller implements IAdminController
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -82,7 +82,7 @@ class PageController extends Controller implements IAdminController
     public function actionCreate($continue_edit = false)
     {
         /** @var Page $model */
-        $model = Yii::createObject(Page::className());
+        $model = Yii::createObject(Page::class);
 
         if ($model->loadWithRelations(Yii::$app->request->post()) && $model->save()) {
             if (!$continue_edit) {

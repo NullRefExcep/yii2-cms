@@ -67,7 +67,7 @@ class Block extends ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
             ]
@@ -108,6 +108,7 @@ class Block extends ActiveRecord
 
     /**
      * @return mixed
+     * @throws \yii\base\InvalidConfigException
      */
     public function getTypeName()
     {
@@ -148,6 +149,9 @@ class Block extends ActiveRecord
 
     /**
      * @return Widget
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\base\InvalidConfigException
      */
     public function getWidget()
     {
@@ -155,11 +159,11 @@ class Block extends ActiveRecord
     }
 
     /**
-     * @return $this
+     * @return \yii\db\ActiveQuery|BlockQuery
      */
     public function getPages()
     {
-        return $this->hasMany(Page::className(), ['id' => 'page_id'])->viaTable(PageHasBlock::tableName(), ['block_id' => 'id']);
+        return $this->hasMany(Page::class, ['id' => 'page_id'])->viaTable(PageHasBlock::tableName(), ['block_id' => 'id']);
     }
 
     /**

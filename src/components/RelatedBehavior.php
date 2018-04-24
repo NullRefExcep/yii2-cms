@@ -11,6 +11,13 @@ use yii\base\Behavior;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 
+/**
+ * Class RelatedBehavior
+ *
+ * Simplify work with related models
+ *
+ * @package nullref\cms\components
+ */
 class RelatedBehavior extends Behavior
 {
     /** @var array */

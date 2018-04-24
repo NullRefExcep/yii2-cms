@@ -2,7 +2,6 @@
 
 namespace nullref\cms;
 
-use nullref\cms\components\PageLayoutManager;
 use nullref\core\components\Module as BaseModule;
 use nullref\core\interfaces\IAdminModule;
 use Yii;
@@ -13,7 +12,7 @@ use yii\helpers\ArrayHelper;
  * @package nullref\blog
  *
  *
- * @property PageLayoutManager $layoutManager
+ * @property components\PageLayoutManager $layoutManager
  *
  */
 class Module extends BaseModule implements IAdminModule
@@ -26,21 +25,33 @@ class Module extends BaseModule implements IAdminModule
 
     public $urlPrefix = '/pages';
 
+    /**
+     * Module constructor.
+     * Init with inner components
+     *
+     * @param $id
+     * @param null $parent
+     * @param array $config
+     */
     public function __construct($id, $parent = null, $config = [])
     {
         $config = ArrayHelper::merge([
             'components' => [
                 'layoutManager' => [
-                    'class' => '\nullref\cms\components\PageLayoutManager',
+                    'class' => components\PageLayoutManager::class,
                 ],
                 'blockManager' => [
-                    'class' => 'nullref\cms\components\BlockManager',
+                    'class' => components\BlockManager::class,
                 ],
             ],
         ], $config);
         parent::__construct($id, $parent, $config);
     }
 
+    /**
+     * Return module menu for admin module
+     * @return array
+     */
     public static function getAdminMenu()
     {
         return [

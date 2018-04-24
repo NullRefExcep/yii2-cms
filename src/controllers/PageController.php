@@ -18,7 +18,7 @@ class PageController extends Controller
     {
         return [
             'view' => [
-                'class' => PageView::className(),
+                'class' => PageView::class,
             ]
         ];
     }

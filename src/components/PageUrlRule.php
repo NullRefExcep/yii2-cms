@@ -11,12 +11,26 @@ namespace nullref\cms\components;
 use nullref\cms\models\Page;
 use yii\web\UrlRule;
 
+/**
+ * Class PageUrlRule
+ * Rule that match url with page records
+ * and route to page if found
+ *
+ * @package nullref\cms\components
+ */
 class PageUrlRule extends UrlRule
 {
     public $pattern = '/<route:[_a-zA-Z0-9-/]+>';
 
     public $route = '/cms/page/view';
 
+    /**
+     * @param \yii\web\UrlManager $manager
+     * @param \yii\web\Request $request
+     * @return array|bool
+     * @throws \Exception
+     * @throws \Throwable
+     */
     public function parseRequest($manager, $request)
     {
         $result = parent::parseRequest($manager, $request);

@@ -74,20 +74,20 @@ class Page extends ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
             ],
             'related' => [
                 'fieldSuffix' => '_list',
-                'class' => RelatedBehavior::className(),
+                'class' => RelatedBehavior::class,
                 'indexBy' => 'id',
                 'fields' => [
-                    'items' => PageHasBlock::className(),
+                    'items' => PageHasBlock::class,
                 ]
             ],
             'serialize' => [
-                'class' => SerializeBehavior::className(),
+                'class' => SerializeBehavior::class,
                 'fields' => ['meta'],
             ]
         ];
@@ -119,7 +119,7 @@ class Page extends ActiveRecord
             $cmd = self::find()->byRoute($this->route)->createCommand();
 
             $cacheKey = [
-                Command::className(),
+                Command::class,
                 'fetch',
                 null,
                 self::getDb()->dsn,
@@ -188,10 +188,11 @@ class Page extends ActiveRecord
      */
     public function getItems()
     {
-        return $this->hasMany(PageHasBlock::className(), ['page_id' => 'id'])->orderBy(['order' => SORT_ASC]);
+        return $this->hasMany(PageHasBlock::class, ['page_id' => 'id'])->orderBy(['order' => SORT_ASC]);
     }
 
     /**
+     * Set meta tags to view for current page instance
      * @param View $view
      */
     public function registerMetaTags($view)

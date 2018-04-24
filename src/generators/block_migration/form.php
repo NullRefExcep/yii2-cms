@@ -13,8 +13,8 @@ use yii\widgets\ActiveForm;
 /* @var $form ActiveForm */
 /* @var $generator Generator */
 
-$this->registerAssetBundle(AssetBundle::className());
-$this->registerAssetBundle(TreeAsset::className());
+$this->registerAssetBundle(AssetBundle::class);
+$this->registerAssetBundle(TreeAsset::class);
 
 ?>
 

@@ -3,7 +3,7 @@
 namespace nullref\cms\components;
 
 use Yii;
-use yii\base\Object;
+use yii\base\BaseObject;
 
 /**
  * @author    Dmytro Karpovych
@@ -11,7 +11,7 @@ use yii\base\Object;
  *
  * @property LinkProvider[] $providers
  */
-class LinkManager extends Object
+class LinkManager extends BaseObject
 {
     /** @var LinkProvider[] */
     protected $providers = [];
@@ -27,6 +27,9 @@ class LinkManager extends Object
         return $provider->createUrl($id);
     }
 
+    /**
+     * @return LinkProvider[]
+     */
     public function getProviders()
     {
         return $this->providers;
@@ -34,6 +37,7 @@ class LinkManager extends Object
 
     /**
      * @param array $providers
+     * @throws \yii\base\InvalidConfigException
      */
     public function setProviders(array $providers)
     {
@@ -55,6 +59,11 @@ class LinkManager extends Object
         $this->providers[$type] = $provider;
     }
 
+    /**
+     * @param $type
+     * @param $providerConfig
+     * @throws \yii\base\InvalidConfigException
+     */
     public function setProvider($type, $providerConfig)
     {
         /** @var LinkProvider $provider */

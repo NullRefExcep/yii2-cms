@@ -7,7 +7,7 @@ use mihaildev\elfinder\InputFile;
  * @var $block \nullref\cms\blocks\text\Block
  */
 
-echo $form->field($block, 'image')->widget(InputFile::className(), [
+echo $form->field($block, 'image')->widget(InputFile::class, [
     'language' => 'ru',
     'controller' => 'elfinder-backend',
     'filter' => 'image',

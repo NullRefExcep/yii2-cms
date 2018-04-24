@@ -13,7 +13,7 @@ $this->registerJs("CKEDITOR.plugins.addExternal( 'codemirror', '" . $footnotesUr
 
 ?>
 
-<?= $form->field($block, 'content')->widget(CKEditor::className(), [
+<?= $form->field($block, 'content')->widget(CKEditor::class, [
     'id' => 'editor',
     'editorOptions' => [
         'preset' => 'full',

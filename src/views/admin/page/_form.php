@@ -73,7 +73,7 @@ JS
 
             <div class="row" data-type="<?= Page::TYPE_CONTENT ?>" style="display: none">
                 <div class="col-md-12">
-                    <?= $form->field($model, 'content')->widget(CKEditor::className(), [
+                    <?= $form->field($model, 'content')->widget(CKEditor::class, [
                         'editorOptions' => ElFinder::ckeditorOptions('elfinder-backend', [
                             'height' => 300,
                         ]),
@@ -91,7 +91,7 @@ JS
 
         <div class="col-md-12">
             <h4><?= Yii::t('cms', 'Meta Tags') ?></h4>
-            <?= $form->field($model, 'meta')->widget(MultipleInput::className(), [
+            <?= $form->field($model, 'meta')->widget(MultipleInput::class, [
                 'columns' => [
                     [
                         'name' => 'name',

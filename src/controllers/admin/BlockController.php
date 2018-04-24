@@ -26,7 +26,7 @@ class BlockController extends Controller implements IAdminController
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -84,7 +84,7 @@ class BlockController extends Controller implements IAdminController
      */
     public function actionCreate()
     {
-        $model = Yii::createObject(Block::className());
+        $model = Yii::createObject(Block::class);
 
         if ($pageId = Yii::$app->request->get('page_id')) {
             $model->visibility = Block::VISIBILITY_PROTECTED;
@@ -113,7 +113,7 @@ class BlockController extends Controller implements IAdminController
             throw  new BadRequestHttpException();
         }
         /** @var Block $model */
-        $model = Yii::createObject(Block::className());
+        $model = Yii::createObject(Block::class);
         $model->visibility = Block::VISIBILITY_PROTECTED;
         $model->class_name = $class_name;
         $model->id = Yii::$app->security->generateRandomString();

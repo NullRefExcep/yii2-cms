@@ -9,6 +9,12 @@ use yii\base\InvalidConfigException;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Class BlockManager
+ * Contain list of blocks and management creation of block widgets
+ *
+ * @package nullref\cms\components
+ */
 class BlockManager extends Component
 {
     const CLASS_WIDGET = '\Widget';
@@ -39,10 +45,14 @@ class BlockManager extends Component
     }
 
     /**
+     * Create instance of block widget by block id
+     *
      * @param $id
      * @param $config
-     * @return \nullref\cms\components\Widget
-     * @throws \yii\base\InvalidConfigException | \Exception
+     * @return Widget
+     * @throws InvalidConfigException
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function getWidget($id, $config = [])
     {
@@ -71,6 +81,7 @@ class BlockManager extends Component
     }
 
     /**
+     * Return current list of blocks in system
      * @return array
      */
     public function getList()

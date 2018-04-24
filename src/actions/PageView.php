@@ -10,6 +10,11 @@ use yii\web\NotFoundHttpException;
 
 
 /**
+ * Class PageView
+ * @package nullref\cms\actions
+ *
+ * Action for rendering cms pages
+ *
  * @author    Dmytro Karpovych
  * @copyright 2015 NRE
  */
@@ -17,6 +22,12 @@ class PageView extends Action
 {
     public $view = 'view';
 
+    /**
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     */
     public function run()
     {
         if (($route = Yii::$app->request->getQueryParam('route')) == null) {
