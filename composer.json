@@ -11,7 +11,7 @@
         "bower-asset/owl.carousel": "2.*",
         "mihaildev/yii2-ckeditor": "*",
         "mihaildev/yii2-elfinder": "*",
-        "nullref/yii2-core": "^0.0.3",
+        "nullref/yii2-core": ">=0.0.3",
         "nullref/yii2-useful": ">=0.0.4",
         "rmrevin/yii2-fontawesome": ">=2.16.0",
         "trntv/yii2-aceeditor": "*",
