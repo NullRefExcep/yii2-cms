@@ -41,7 +41,7 @@ class Bootstrap implements BootstrapInterface
         if ($app->hasModule('cms') && ($module = $app->getModule('cms')) instanceof Module) {
             $classMap = array_merge($this->classMap, $module->classMap);
             foreach (array_keys($this->classMap) as $item) {
-                $className = '\nullref\cms\models\\' . $item;
+                $className = 'nullref\cms\models\\' . $item;
                 $definition = $classMap[$item];
                 Yii::$container->set($className, $definition);
             }
