@@ -70,7 +70,7 @@ class Bootstrap implements BootstrapInterface
                                             'read' => false,
                                             'write' => false,
                                             'hidden' => true,
-                                            'locked' => false
+                                            'locked' => false,
                                         ],
                                     ],
                                 ],
