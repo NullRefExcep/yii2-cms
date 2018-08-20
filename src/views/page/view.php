@@ -7,6 +7,8 @@ use nullref\cms\components\Block as CMSBlock;
 /** @var $page \nullref\cms\models\Page */
 $this->title = $page->title;
 $page->registerMetaTags($this);
+
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php foreach ($page->items as $item): ?>
     <?php if ($item->block): ?>
