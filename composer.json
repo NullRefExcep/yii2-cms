@@ -16,7 +16,7 @@
         "rmrevin/yii2-fontawesome": ">=2.16.0",
         "trntv/yii2-aceeditor": "*",
         "unclead/yii2-multiple-input": ">=1.2.10",
-        "wbraganca/yii2-fancytree-widget": "1.0.1",
+        "wbraganca/yii2-fancytree-widget": "*",
         "yiisoft/yii2": ">=2.0.13",
         "yiisoft/yii2-bootstrap": "^2.0@dev",
         "yiisoft/yii2-jui": "~2.0.0"
