@@ -4,7 +4,6 @@
  * @copyright 2016 NRE
  */
 
-
 namespace nullref\cms\blocks\multilingual;
 
 use nullref\cms\components\Block as BaseBlock;
@@ -17,14 +16,23 @@ use yii\helpers\Html;
 use yii\validators\Validator;
 use yii\widgets\ActiveForm;
 
-
+/**
+ * Class Block
+ * @package nullref\cms\blocks\multilingual
+ */
 abstract class Block extends BaseBlock
 {
     /** @var  ILanguage[] */
     public $languages = [];
 
+    /**
+     * @var array
+     */
     protected $_languagesMap = [];
 
+    /**
+     * @inheritDoc
+     */
     public function init()
     {
         parent::init();
@@ -38,7 +46,7 @@ abstract class Block extends BaseBlock
             $this->_languagesMap[$language->getSlug()] = $language;
         }
         $languages = array_keys($this->_languagesMap);
-        foreach ($this->attributes() as $attribute) {
+        foreach ($this->getMultilingualAttributes() as $attribute) {
             $default = $this->{$attribute};
             $newValue = array_combine($languages, array_fill(0, count($languages), $default));
             $this->{$attribute} = $newValue;
@@ -47,6 +55,14 @@ abstract class Block extends BaseBlock
         $this->prepareValidators();
     }
 
+    /**
+     * @return array
+     */
+    public abstract function getMultilingualAttributes();
+
+    /**
+     * @inheritDoc
+     */
     protected function prepareValidators()
     {
         $rules = $this->rules();
@@ -77,16 +93,29 @@ abstract class Block extends BaseBlock
 
     }
 
+    /**
+     * @param $rule_attributes
+     *
+     * @return mixed
+     */
     protected function populateAttributes($rule_attributes)
     {
         $languages = array_keys($this->_languagesMap);
-        return array_reduce($rule_attributes, function ($rule_attributes, $attribute) use ($languages) {
-            return array_merge($rule_attributes, array_map(function ($language) use ($attribute) {
-                return $attribute . '_' . $language;
-            }, $languages));
+        $multiLanguageAttrs = $this->getMultilingualAttributes();
+        return array_reduce($rule_attributes, function ($rule_attributes, $attribute) use ($languages, $multiLanguageAttrs) {
+            if (in_array($attribute, $multiLanguageAttrs)) {
+                return array_merge($rule_attributes, array_map(function ($language) use ($attribute) {
+                    return $attribute . '_' . $language;
+                }, $languages));
+            } else {
+                return array_merge($rule_attributes, [$attribute]);
+            }
         }, []);
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return $this->getAttributes(null, ['languages', 'formFile']);
@@ -116,6 +145,12 @@ abstract class Block extends BaseBlock
         return ob_get_clean();
     }
 
+    /**
+     * @param null $attributeNames
+     * @param bool $clearErrors
+     *
+     * @return mixed
+     */
     public function validate($attributeNames = null, $clearErrors = true)
     {
         return parent::validate($attributeNames, $clearErrors);
@@ -129,7 +164,7 @@ abstract class Block extends BaseBlock
     {
         foreach ($this->_languagesMap as $key => $languages) {
             if (substr($name, -3) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - 4);
+                $attr = substr($name, 0, strlen($name) - 3);
                 return $this->{$attr}[$key];
             }
         }
@@ -144,7 +179,7 @@ abstract class Block extends BaseBlock
     {
         foreach ($this->_languagesMap as $key => $languages) {
             if (substr($name, -3) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - 4);
+                $attr = substr($name, 0, strlen($name) - 3);
                 $this->{$attr}[$key] = $value;
                 return;
             }
@@ -153,11 +188,18 @@ abstract class Block extends BaseBlock
         return;
     }
 
+    /**
+     * @param $name
+     * @param bool $checkVars
+     * @param bool $checkBehaviors
+     *
+     * @return bool
+     */
     public function canGetProperty($name, $checkVars = true, $checkBehaviors = true)
     {
         foreach ($this->_languagesMap as $key => $languages) {
             if (substr($name, -3) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - 4);
+                $attr = substr($name, 0, strlen($name) - 3);
                 return property_exists($this, $attr);
             }
         }

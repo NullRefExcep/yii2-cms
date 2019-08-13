@@ -4,7 +4,6 @@
  * @copyright 2017 NRE
  */
 
-
 namespace nullref\cms\components\multilingual;
 
 use nullref\cms\components\Block as CmsBlock;
@@ -14,6 +13,10 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\validators\Validator;
 
+/**
+ * Class BaseBlock
+ * @package nullref\cms\components\multilingual
+ */
 abstract class BaseBlock extends CmsBlock
 {
     /** @var  ILanguage[] */
@@ -21,9 +24,14 @@ abstract class BaseBlock extends CmsBlock
 
     /** @var  ILanguageManager */
     protected $languageManager;
+    /**
+     * @var array
+     */
     protected $_languagesMap = [];
 
-
+    /**
+     * @inheritDoc
+     */
     public function init()
     {
         parent::init();
@@ -49,8 +57,14 @@ abstract class BaseBlock extends CmsBlock
         $this->prepareValidators();
     }
 
+    /**
+     * @return mixed
+     */
     public abstract function getMultilingualAttributes();
 
+    /**
+     * @inheritDoc
+     */
     protected function prepareValidators()
     {
         $rules = $this->rules();
@@ -81,6 +95,11 @@ abstract class BaseBlock extends CmsBlock
 
     }
 
+    /**
+     * @param $ruleAttributes
+     *
+     * @return array
+     */
     protected function populateAttributes($ruleAttributes)
     {
         $attributes = array_intersect($ruleAttributes, $this->getMultilingualAttributes());
@@ -96,6 +115,9 @@ abstract class BaseBlock extends CmsBlock
         }, []));
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return $this->getAttributes(null, ['languages', 'formFile']);
@@ -110,7 +132,7 @@ abstract class BaseBlock extends CmsBlock
         foreach ($this->_languagesMap as $key => $languages) {
             $keyLen = strlen($key);
             if (substr($name, -($keyLen + 1)) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - $keyLen - 2);
+                $attr = substr($name, 0, strlen($name) - $keyLen - 1);
                 if (isset($this->{$attr}[$key])) {
                     return $this->{$attr}[$key];
                 }
@@ -137,7 +159,7 @@ abstract class BaseBlock extends CmsBlock
         foreach ($this->_languagesMap as $key => $languages) {
             $keyLen = strlen($key);
             if (substr($name, -($keyLen + 1)) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - $keyLen - 2);
+                $attr = substr($name, 0, strlen($name) - $keyLen - 1);
                 if (!is_array($this->{$attr})) {
                     $this->{$attr} = [
                         'default' => $this->{$attr},
@@ -153,12 +175,19 @@ abstract class BaseBlock extends CmsBlock
         parent::__set($name, $value);
     }
 
+    /**
+     * @param $name
+     * @param bool $checkVars
+     * @param bool $checkBehaviors
+     *
+     * @return bool
+     */
     public function canGetProperty($name, $checkVars = true, $checkBehaviors = true)
     {
         foreach ($this->_languagesMap as $key => $languages) {
             $keyLen = strlen($key);
             if (substr($name, -($keyLen + 1)) === '_' . $key) {
-                $attr = substr($name, 0, count($name) - $keyLen - 2);
+                $attr = substr($name, 0, strlen($name) - $keyLen - 1);
                 return property_exists($this, $attr);
             }
         }
