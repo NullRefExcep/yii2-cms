@@ -86,7 +86,7 @@ class Bootstrap implements BootstrapInterface
             }
 
             if ($app->hasModule('gii')) {
-                Event::on(\yii\gii\Module::class, yii\gii\Module::EVENT_BEFORE_ACTION, function (Event $event) {
+                Event::on(\yii\gii\Module::class, \yii\gii\Module::EVENT_BEFORE_ACTION, function (Event $event) {
                     /** @var \yii\gii\Module $gii */
                     $gii = $event->sender;
                     $gii->generators['block-migration-generator'] = [
